@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book Your Checkup Now</title>
+<style>
+  :root{
+    --ink:#1c2b2d; --sub:#5b6b6d; --line:#e3e8e8;
+    --accent:#2f6f6b; --accent-bg:#eaf4f3; --bg:#fafbfb; --card:#fff;
+    --warn:#b3492f; --warn-bg:#fbeeeb; --gold:#a97a1f; --gold-bg:#fbf3e2;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--ink); padding:32px 16px;
+  }
+  .wrap{max-width:860px; margin:0 auto;}
+
+  header{text-align:center; margin-bottom:24px;}
+  .eyebrow{
+    text-transform:uppercase; letter-spacing:.06em; font-size:.72rem; font-weight:700;
+    color:var(--accent); margin:0 0 8px;
+  }
+  header h1{font-size:1.55rem; margin:0 0 10px; line-height:1.3;}
+  .lead{color:var(--ink); font-size:1rem; margin:0 auto 12px; max-width:580px; line-height:1.5;}
+  .booked-note{
+    background:var(--accent-bg); border:1px solid var(--accent); border-radius:10px;
+    padding:12px 16px; font-size:.88rem; color:var(--ink); max-width:600px; margin:0 auto 14px;
+    line-height:1.5;
+  }
+  header p#subline{color:var(--sub); margin:0; font-size:.88rem;}
+
+  /* ---- flow diagram ---- */
+  .flow{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; margin-bottom:24px;}
+  .flow h3{margin:0 0 18px; font-size:1rem; text-align:center;}
+  .flow-branches{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media(max-width:640px){.flow-branches{grid-template-columns:1fr;}}
+  .branch-title{font-size:.86rem; font-weight:700; text-align:center; margin-bottom:10px; padding:8px; border-radius:8px;}
+  .branch-title.bad{background:var(--warn-bg); color:#7a2e1c;}
+  .branch-title.good{background:var(--accent-bg); color:#1d4b47;}
+  .step-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px;}
+  .step{border-radius:8px; padding:10px 12px; font-size:.82rem; line-height:1.4; position:relative; padding-left:30px;}
+  .step .num{position:absolute; left:8px; top:10px; font-size:.72rem; font-weight:700; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff;}
+  .step strong{display:block; font-size:.84rem; margin-bottom:1px;}
+  .branch.bad .step{background:var(--warn-bg); color:#7a2e1c;}
+  .branch.bad .step .num{background:var(--warn);}
+  .branch.good .step{background:var(--accent-bg); color:#1d4b47;}
+  .branch.good .step .num{background:var(--accent);}
+  .step-arrow{text-align:center; font-size:.85rem; opacity:.5; margin:0;}
+
+  .false-economy{
+    background:var(--gold-bg); border:1px solid #ecdba8; border-radius:10px; padding:14px 16px;
+    font-size:.87rem; line-height:1.55; margin-bottom:24px; color:#5c4a1a;
+  }
+  .false-economy strong{color:#3f3210;}
+
+  .cols{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:16px; align-items:stretch;}
+  @media(max-width:760px){.cols{grid-template-columns:1fr;}}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; display:flex; flex-direction:column;}
+  .card.good{border:2px solid var(--accent); position:relative;}
+  .card.bad{border:1px solid #e6c3b8;}
+  .badge{position:absolute; top:-11px; left:16px; background:var(--accent); color:#fff;
+    font-size:.7rem; padding:3px 10px; border-radius:999px; letter-spacing:.03em;}
+  .card h2{font-size:1rem; margin:0 0 2px;}
+  .option-tag{font-size:.72rem; font-weight:700; letter-spacing:.02em; margin:6px 0 10px; color:var(--sub);}
+  .card.good .option-tag{color:var(--accent);}
+  .card.bad .option-tag{color:var(--warn);}
+  .price{font-size:1.4rem; font-weight:700; margin:0 0 12px;}
+  .card ul{list-style:none; padding:0; margin:0 0 auto; font-size:.85rem; color:var(--ink);}
+  .card li{padding:5px 0; border-top:1px solid var(--line); display:flex; gap:8px;}
+  .card li:first-child{border-top:none;}
+  .tick{color:var(--accent); flex-shrink:0;}
+  .card.bad .tick{color:var(--warn);}
+
+  .keep-place{
+    background:var(--accent-bg); border:1px solid var(--accent); border-radius:10px; padding:14px 16px;
+    font-size:.86rem; line-height:1.5; margin-bottom:24px; color:#1d4b47; text-align:center;
+  }
+  .keep-place strong{color:var(--accent);}
+
+  .cta{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:24px;}
+  .btn{padding:12px 22px; border-radius:999px; border:none; font-size:.95rem; cursor:pointer; font-weight:600;}
+  .btn.primary{background:var(--accent); color:#fff;}
+  .btn.ghost{background:transparent; border:1px solid var(--line); color:var(--ink);}
+
+  footer{text-align:center; font-size:.78rem; color:var(--sub); line-height:1.5;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Why book a checkup now instead of waiting</p>
+    <h1>Small decay doesn't stay small — and NHS availability can take years</h1>
+    <p class="lead" id="leadLine">Left unchecked, small decay quietly gets bigger. By the time it causes pain, it's usually a much bigger — and more expensive — problem to fix.</p>
+    <p class="booked-note" id="bookedNote">Thanks for getting in touch about an NHS checkup. Because of current NHS availability this can mean a long wait — here's a quicker option in the meantime.</p>
+    <p id="subline">Prepared for [Patient Name] — [Practice Name]</p>
+  </header>
+
+  <div class="flow">
+    <h3>Two paths from here</h3>
+    <div class="flow-branches">
+      <div class="branch bad">
+        <div class="branch-title bad">⏳ Wait for your NHS checkup</div>
+        <ul class="step-list">
+          <li class="step"><span class="num">1</span><strong>NHS checkup — often years away</strong>Availability varies, but a wait of 1–3+ years for a routine slot isn't unusual right now.</li>
+          <li class="step-arrow">↓</li>
+          <li class="step"><span class="num">2</span><strong>Small decay goes unnoticed</strong>Without a checkup, early decay has nothing stopping it from spreading.</li>
+          <li class="step-arrow">↓</li>
+          <li class="step"><span class="num">3</span><strong>Decay gets larger</strong>What could've been a small filling now needs more tooth removed to fix.</li>
+          <li class="step-arrow">↓</li>
+          <li class="step"><span class="num">4</span><strong>Tooth needs extraction</strong>Another episode of pain, and another wait for an appointment to have it out.</li>
+          <li class="step-arrow">↓</li>
+          <li class="step"><span class="num">5</span><strong>Gap left behind</strong>Left to replace it: a denture or an implant — see costs below.</li>
+        </ul>
+      </div>
+      <div class="branch good">
+        <div class="branch-title good">✓ Book a private checkup now</div>
+        <ul class="step-list">
+          <li class="step"><span class="num">1</span><strong>Seen this week — <span id="examFeeInline">£45</span></strong>You keep your place on the NHS list too — this doesn't replace it.</li>
+          <li class="step-arrow">↓</li>
+          <li class="step"><span class="num">2</span><strong>Full mouth checked</strong>Any small or early decay gets caught while it's still easy to treat.</li>
+          <li class="step-arrow">↓</li>
+          <li class="step"><span class="num">3</span><strong>Treated while small</strong>e.g. a simple white filling — <span id="fillingFeeInline">£170</span></li>
+          <li class="step-arrow">↓</li>
+          <li class="step"><span class="num">4</span><strong>Problem solved</strong>Simpler process, fewer steps, no pain — and cheaper overall.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="false-economy">
+    <strong>Why most people wait — and why it's a false economy.</strong>
+    Booking privately today costs about <span id="feeDiffInline">£17</span> more than an NHS checkup (<span id="examFeeInline2">£45</span> private vs <span id="nhsBand1Inline">£27.90</span> NHS Band 1). That small saving is exactly why most people choose to wait. But if decay is missed and allowed to progress, the eventual cost of treating it — a filling that's grown into a crown, or worse, an extraction and a denture or implant — is often 10–50× higher than what you'd save by waiting.
+  </div>
+
+  <div class="cols">
+    <div class="card good">
+      <span class="badge">CATCH IT EARLY</span>
+      <h2>Private checkup, treated now</h2>
+      <p class="option-tag">CHEAPEST OVERALL</p>
+      <div class="price" id="stage1Price">£215</div>
+      <ul>
+        <li><span class="tick">✓</span> Checkup — <span id="s1exam">£45</span></li>
+        <li><span class="tick">✓</span> Small filling if needed — <span id="s1fill">£170</span></li>
+        <li><span class="tick">✓</span> One short visit, no pain</li>
+      </ul>
+    </div>
+    <div class="card bad">
+      <h2>Caught later, bigger job</h2>
+      <p class="option-tag">DECAY HAS GROWN</p>
+      <div class="price" id="stage2Price">£699</div>
+      <ul>
+        <li><span class="tick">✗</span> Filling no longer enough — needs a crown/onlay</li>
+        <li><span class="tick">✗</span> More tooth structure lost</li>
+        <li><span class="tick">✗</span> More time in the chair</li>
+      </ul>
+    </div>
+    <div class="card bad">
+      <h2>Caught too late</h2>
+      <p class="option-tag">TOOTH LOST — GAP TO REPLACE</p>
+      <div class="price" id="stage3Price">£120 – £2,400+</div>
+      <ul>
+        <li><span class="tick">✗</span> Extraction — <span id="s3xla">£120</span></li>
+        <li><span class="tick">✗</span> + Denture — <span id="s3dent">£450</span> <em>or</em></li>
+        <li><span class="tick">✗</span> + Implant — <span id="s3imp">£2,400</span>+</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="keep-place">
+    <strong>You don't have to choose between the two.</strong> Booking a private checkup now doesn't take you off the NHS waiting list — you keep your place, and simply avoid small problems turning into big ones while you wait.
+  </div>
+
+  <div class="cta">
+    <button class="btn primary" onclick="alert('Wire this to your booking system')">Book My Private Checkup — <span id="ctaFee">£45</span></button>
+    <button class="btn ghost" onclick="alert('Wire this to your call/enquiry flow')">Ask a Question First</button>
+  </div>
+
+  <footer id="footerLine">
+    Questions? Reply to the text message we sent you or call [Practice Phone].
+  </footer>
+</div>
+
+<script>
+// ---- Fill from URL params ----
+// ?name=&practice=&phone=&examfee=&nhsband1=&fillingfee=&biggerfee=&extractionfee=&denturefee=&implantfee=
+(function(){
+  const p = new URLSearchParams(window.location.search);
+  const name = p.get('name');
+  const practice = p.get('practice') || 'Empire House Dental Surgery';
+  const phone = p.get('phone') || '';
+
+  const examFee = parseFloat(p.get('examfee')) || 45;
+  const nhsBand1 = parseFloat(p.get('nhsband1')) || 27.90;
+  const fillingFee = parseFloat(p.get('fillingfee')) || 170;
+  const biggerFee = parseFloat(p.get('biggerfee')) || 699;
+  const extractionFee = parseFloat(p.get('extractionfee')) || 120;
+  const dentureFee = parseFloat(p.get('denturefee')) || 450;
+  const implantFee = parseFloat(p.get('implantfee')) || 2400;
+
+  const fmt = n => '£' + n.toLocaleString('en-GB', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
+
+  if(name) document.getElementById('subline').textContent = `Prepared for ${name} — ${practice}`;
+  else document.getElementById('subline').textContent = `Prepared for you — ${practice}`;
+
+  document.querySelectorAll('#examFeeInline, #examFeeInline2, #s1exam').forEach(el => el.textContent = fmt(examFee));
+  document.getElementById('ctaFee').textContent = fmt(examFee);
+  document.getElementById('nhsBand1Inline').textContent = fmt(nhsBand1);
+  document.getElementById('feeDiffInline').textContent = fmt(Math.max(0, examFee - nhsBand1));
+  document.querySelectorAll('#fillingFeeInline, #s1fill').forEach(el => el.textContent = fmt(fillingFee));
+  document.getElementById('stage1Price').textContent = fmt(examFee + fillingFee);
+  document.getElementById('stage2Price').textContent = fmt(biggerFee);
+  document.getElementById('s3xla').textContent = fmt(extractionFee);
+  document.getElementById('s3dent').textContent = fmt(dentureFee);
+  document.getElementById('s3imp').textContent = fmt(implantFee);
+  document.getElementById('stage3Price').textContent = fmt(extractionFee + dentureFee) + ' – ' + fmt(extractionFee + implantFee) + '+';
+
+  if(phone) document.getElementById('footerLine').innerHTML = `Questions? Reply to the text message we sent you or call ${phone}.`;
+})();
+</script>
+</body>
+</html>
