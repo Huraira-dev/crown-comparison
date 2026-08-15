@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Your Crown Options</title>
+<style>
+  :root{
+    --ink:#1c2b2d; --sub:#5b6b6d; --line:#e3e8e8;
+    --accent:#2f6f6b; --accent-bg:#eaf4f3; --bg:#fafbfb; --card:#fff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--ink); padding:32px 16px;
+  }
+  .wrap{max-width:760px; margin:0 auto;}
+  header{text-align:center; margin-bottom:28px;}
+  header h1{font-size:1.5rem; margin:0 0 4px;}
+  header p{color:var(--sub); margin:0; font-size:.95rem;}
+
+  .cols{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px;}
+  @media(max-width:600px){.cols{grid-template-columns:1fr;}}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px;}
+  .card.private{border:2px solid var(--accent); position:relative;}
+  .badge{position:absolute; top:-11px; left:16px; background:var(--accent); color:#fff;
+    font-size:.7rem; padding:3px 10px; border-radius:999px; letter-spacing:.03em;}
+  .card h2{font-size:1.1rem; margin:4px 0 2px;}
+  .price{font-size:1.6rem; font-weight:700; margin:6px 0 14px;}
+  .card ul{list-style:none; padding:0; margin:0; font-size:.9rem; color:var(--ink);}
+  .card li{padding:6px 0; border-top:1px solid var(--line); display:flex; gap:8px;}
+  .card li:first-child{border-top:none;}
+  .tick{color:var(--accent); flex-shrink:0;}
+
+  .calc{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; margin-bottom:24px;}
+  .calc h3{margin:0 0 12px; font-size:1rem;}
+  .calc-row{display:flex; gap:12px; flex-wrap:wrap; align-items:end; margin-bottom:14px;}
+  .field{display:flex; flex-direction:column; gap:4px; font-size:.82rem; color:var(--sub);}
+  .field input, .field select{
+    padding:8px 10px; border:1px solid var(--line); border-radius:8px; font-size:.95rem; width:110px;
+  }
+  .result{background:var(--accent-bg); border-radius:10px; padding:14px 16px; font-size:.95rem;}
+  .result b{font-size:1.3rem; color:var(--accent);}
+  .fine{font-size:.72rem; color:var(--sub); margin-top:6px;}
+
+  .cta{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:24px;}
+  .btn{padding:12px 22px; border-radius:999px; border:none; font-size:.95rem; cursor:pointer; font-weight:600;}
+  .btn.primary{background:var(--accent); color:#fff;}
+  .btn.ghost{background:transparent; border:1px solid var(--line); color:var(--ink);}
+
+  footer{text-align:center; font-size:.78rem; color:var(--sub); line-height:1.5;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Comparing Your Crown Options</h1>
+    <p id="subline">Prepared for [Patient Name] — [Practice Name]</p>
+  </header>
+
+  <div class="cols">
+    <div class="card">
+      <h2>NHS Crown</h2>
+      <div class="price" id="nhsPrice">£319.10<span style="font-size:.6em;color:var(--sub);"> (Band 3)</span></div>
+      <ul>
+        <li><span class="tick">✓</span> Clinically suitable material (often metal or metal-ceramic)</li>
+        <li><span class="tick">✓</span> Functional, durable</li>
+        <li><span class="tick">✓</span> NHS-approved lab</li>
+        <li><span class="tick">✓</span> Fixed NHS fee</li>
+      </ul>
+    </div>
+    <div class="card private">
+      <span class="badge">RECOMMENDED FOR VISIBLE TEETH</span>
+      <h2>Private Crown</h2>
+      <div class="price" id="privatePrice">£650</div>
+      <ul>
+        <li><span class="tick">✓</span> Full ceramic / zirconia — natural tooth colour match</li>
+        <li><span class="tick">✓</span> Precision digital scan, no messy impressions</li>
+        <li><span class="tick">✓</span> Choice of premium UK lab</li>
+        <li><span class="tick">✓</span> Longer typical lifespan with premium materials</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="calc">
+    <h3>Spread the cost of your private crown</h3>
+    <div class="calc-row">
+      <div class="field">
+        <label for="amount">Treatment cost (£)</label>
+        <input id="amount" type="number" value="650">
+      </div>
+      <div class="field">
+        <label for="months">Term (months)</label>
+        <select id="months">
+          <option>6</option><option selected>12</option><option>18</option><option>24</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="apr">Representative APR (%)</label>
+        <input id="apr" type="number" value="0" step="0.1">
+      </div>
+      <button class="btn primary" onclick="calc()" style="height:38px;">Calculate</button>
+    </div>
+    <div class="result">
+      Estimated monthly payment: <b id="out">£54.17</b>/mo
+      <div class="fine">Illustrative only — final terms subject to lender approval (e.g. Chrysalis Finance, Tabeo). Not financial advice.</div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <button class="btn primary" onclick="alert('Wire this to your booking system / SMS workflow')">Book My Private Crown</button>
+    <button class="btn ghost" onclick="alert('Link to digital consent form')">Review &amp; Sign Consent Form</button>
+  </div>
+
+  <footer id="footerLine">
+    Questions? Reply to the text message we sent you or call [Practice Phone].<br>
+    A reminder will follow automatically in 3 days if we don't hear back.
+  </footer>
+</div>
+
+<script>
+function calc(){
+  const amount = parseFloat(document.getElementById('amount').value) || 0;
+  const months = parseFloat(document.getElementById('months').value) || 1;
+  const apr = parseFloat(document.getElementById('apr').value) || 0;
+  const r = apr/100/12;
+  let monthly;
+  if(r === 0){ monthly = amount/months; }
+  else{ monthly = amount * r / (1 - Math.pow(1+r, -months)); }
+  document.getElementById('out').textContent = '£' + monthly.toFixed(2);
+}
+
+// ---- Fill from URL params: ?name=&practice=&phone=&nhsfee=&fee= ----
+(function(){
+  const p = new URLSearchParams(window.location.search);
+  const name = p.get('name');
+  const practice = p.get('practice') || 'West Cotes Dental';
+  const phone = p.get('phone') || '';
+  const nhsFee = p.get('nhsfee');
+  const fee = p.get('fee');
+
+  if(name) document.getElementById('subline').textContent = `Prepared for ${name} — ${practice}`;
+  else document.getElementById('subline').textContent = `Prepared for you — ${practice}`;
+
+  if(nhsFee) document.getElementById('nhsPrice').innerHTML = `£${nhsFee}<span style="font-size:.6em;color:var(--sub);"> (Band 3)</span>`;
+  if(fee){
+    document.getElementById('privatePrice').textContent = `£${fee}`;
+    document.getElementById('amount').value = fee;
+    calc();
+  }
+  if(phone) document.getElementById('footerLine').innerHTML =
+    `Questions? Reply to the text message we sent you or call ${phone}.<br>A reminder will follow automatically in 3 days if we don't hear back.`;
+})();
+</script>
+</body>
+</html>
