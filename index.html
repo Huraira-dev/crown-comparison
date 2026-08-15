@@ -7,29 +7,66 @@
   :root{
     --ink:#1c2b2d; --sub:#5b6b6d; --line:#e3e8e8;
     --accent:#2f6f6b; --accent-bg:#eaf4f3; --bg:#fafbfb; --card:#fff;
+    --warn:#b3492f; --warn-bg:#fbeeeb;
   }
   *{box-sizing:border-box;}
   body{
     margin:0; font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;
     background:var(--bg); color:var(--ink); padding:32px 16px;
   }
-  .wrap{max-width:760px; margin:0 auto;}
-  header{text-align:center; margin-bottom:28px;}
-  header h1{font-size:1.5rem; margin:0 0 4px;}
-  header p{color:var(--sub); margin:0; font-size:.95rem;}
+  .wrap{max-width:780px; margin:0 auto;}
 
-  .cols{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px;}
+  header{text-align:center; margin-bottom:24px;}
+  .eyebrow{
+    text-transform:uppercase; letter-spacing:.06em; font-size:.72rem; font-weight:700;
+    color:var(--accent); margin:0 0 8px;
+  }
+  header h1{font-size:1.55rem; margin:0 0 10px; line-height:1.3;}
+  .lead{color:var(--ink); font-size:1rem; margin:0 auto 12px; max-width:560px; line-height:1.5;}
+  .booked-note{
+    background:var(--accent-bg); border:1px solid var(--accent); border-radius:10px;
+    padding:12px 16px; font-size:.88rem; color:var(--ink); max-width:600px; margin:0 auto 14px;
+    line-height:1.5;
+  }
+  header p#subline{color:var(--sub); margin:0; font-size:.88rem;}
+
+  /* ---- flow diagram ---- */
+  .flow{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; margin-bottom:24px;}
+  .flow h3{margin:0 0 16px; font-size:1rem; text-align:center;}
+  .flow-header{display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:18px; flex-wrap:wrap;}
+  .flow-header .cap strong{display:block; font-size:.92rem;}
+  .flow-header .cap p{margin:2px 0 0; font-size:.82rem; color:var(--sub);}
+  .flow-branches{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media(max-width:560px){.flow-branches{grid-template-columns:1fr;}}
+  .branch{text-align:center;}
+  .branch .arrow{font-size:1.4rem; margin-bottom:4px;}
+  .branch.bad .arrow{color:var(--warn);}
+  .branch.good .arrow{color:var(--accent);}
+  .branch .arrow-label{font-size:.72rem; color:var(--sub); display:block; margin-bottom:6px;}
+  .box{border-radius:10px; padding:12px 14px; font-size:.84rem; line-height:1.45; text-align:left;}
+  .box.bad{background:var(--warn-bg); border:1px solid #e6c3b8; color:#7a2e1c;}
+  .box.good{background:var(--accent-bg); border:1px solid #bcdad7; color:#1d4b47;}
+  .box strong{display:block; margin-bottom:4px; font-size:.88rem;}
+
+  .cols{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;}
   @media(max-width:600px){.cols{grid-template-columns:1fr;}}
   .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px;}
   .card.private{border:2px solid var(--accent); position:relative;}
   .badge{position:absolute; top:-11px; left:16px; background:var(--accent); color:#fff;
     font-size:.7rem; padding:3px 10px; border-radius:999px; letter-spacing:.03em;}
-  .card h2{font-size:1.1rem; margin:4px 0 2px;}
+  .card-head{display:flex; align-items:center; gap:10px; margin-bottom:2px;}
+  .card h2{font-size:1.1rem; margin:0;}
   .price{font-size:1.6rem; font-weight:700; margin:6px 0 14px;}
   .card ul{list-style:none; padding:0; margin:0; font-size:.9rem; color:var(--ink);}
   .card li{padding:6px 0; border-top:1px solid var(--line); display:flex; gap:8px;}
   .card li:first-child{border-top:none;}
   .tick{color:var(--accent); flex-shrink:0;}
+
+  .permanence-note{
+    background:#fff8ea; border:1px solid #ecdba8; border-radius:10px; padding:14px 16px;
+    font-size:.86rem; line-height:1.5; margin-bottom:24px; color:#5c4a1a;
+  }
+  .permanence-note strong{color:#3f3210;}
 
   .calc{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; margin-bottom:24px;}
   .calc h3{margin:0 0 12px; font-size:1rem;}
@@ -53,16 +90,62 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>Comparing Your Crown Options</h1>
+    <p class="eyebrow">Why your dentist recommended a crown</p>
+    <h1>Teeth with large fillings are highly prone to breaking down</h1>
+    <p class="lead" id="leadLine">Your dentist has recommended a crown for this tooth — to strengthen it and stop that breakdown before it happens.</p>
+    <p class="booked-note" id="bookedNote">You're currently booked in for an <strong>NHS crown</strong>. Before your appointment, it's worth understanding your options — a crown, once fitted, isn't something that gets easily swapped out later.</p>
     <p id="subline">Prepared for [Patient Name] — [Practice Name]</p>
   </header>
 
+  <div class="flow">
+    <h3>What happens to a weakened tooth like this</h3>
+    <div class="flow-header">
+      <svg width="100" height="112" viewBox="0 0 160 180" aria-hidden="true">
+        <path d="M55,118 C50,148 55,168 62,174 L68,174 C66,158 65,138 68,118 Z" fill="#f4f1e8" stroke="#cfc9b8" stroke-width="2"/>
+        <path d="M105,118 C110,148 105,168 98,174 L92,174 C94,158 95,138 92,118 Z" fill="#f4f1e8" stroke="#cfc9b8" stroke-width="2"/>
+        <path d="M28,58 Q28,18 80,16 Q132,18 132,58 Q132,98 112,118 L48,118 Q28,98 28,58 Z" fill="#f4f1e8" stroke="#cfc9b8" stroke-width="3"/>
+        <path d="M44,44 Q80,26 116,44 Q122,70 100,88 Q80,98 60,88 Q38,70 44,44 Z" fill="#9aa0a6"/>
+        <path d="M107,52 L119,44 L112,60 L122,64" stroke="#b3492f" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="cap">
+        <strong>Your tooth today</strong>
+        <p>Large filling, thin &amp; weakened cusp walls</p>
+      </div>
+    </div>
+    <div class="flow-branches">
+      <div class="branch bad">
+        <span class="arrow">↓</span>
+        <span class="arrow-label">if left as is</span>
+        <div class="box bad">
+          <strong>⚠ Catastrophic breakdown</strong>
+          Cusp fracture, sudden pain, possible extraction — often an emergency and more costly to treat.
+        </div>
+      </div>
+      <div class="branch good">
+        <span class="arrow">↓</span>
+        <span class="arrow-label">with a crown fitted</span>
+        <div class="box good">
+          <strong>✓ Protected &amp; strengthened</strong>
+          Full coverage spreads bite force evenly and gives the tooth long-term stability.
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="cols">
     <div class="card">
-      <h2>NHS Crown</h2>
+      <div class="card-head">
+        <svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true">
+          <defs><linearGradient id="silverGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#dfe3e5"/><stop offset="100%" stop-color="#9aa0a6"/>
+          </linearGradient></defs>
+          <path d="M20,68 Q20,18 50,14 Q80,18 80,68 Q80,84 50,90 Q20,84 20,68 Z" fill="url(#silverGrad)" stroke="#83898e" stroke-width="2"/>
+        </svg>
+        <h2>NHS Crown</h2>
+      </div>
       <div class="price" id="nhsPrice">£319.10<span style="font-size:.6em;color:var(--sub);"> (Band 3)</span></div>
       <ul>
-        <li><span class="tick">✓</span> Clinically suitable material (often metal or metal-ceramic)</li>
+        <li><span class="tick">✓</span> Metal / metal-ceramic — silver-coloured</li>
         <li><span class="tick">✓</span> Functional, durable</li>
         <li><span class="tick">✓</span> NHS-approved lab</li>
         <li><span class="tick">✓</span> Fixed NHS fee</li>
@@ -70,7 +153,15 @@
     </div>
     <div class="card private">
       <span class="badge">RECOMMENDED FOR VISIBLE TEETH</span>
-      <h2>Private Crown</h2>
+      <div class="card-head">
+        <svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true">
+          <defs><linearGradient id="enamelGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fffaf0"/><stop offset="100%" stop-color="#f0e2c0"/>
+          </linearGradient></defs>
+          <path d="M20,68 Q20,18 50,14 Q80,18 80,68 Q80,84 50,90 Q20,84 20,68 Z" fill="url(#enamelGrad)" stroke="#d8c79a" stroke-width="2"/>
+        </svg>
+        <h2>Private Crown</h2>
+      </div>
       <div class="price" id="privatePrice">£650</div>
       <ul>
         <li><span class="tick">✓</span> Full ceramic / zirconia — natural tooth colour match</li>
@@ -79,6 +170,10 @@
         <li><span class="tick">✓</span> Longer typical lifespan with premium materials</li>
       </ul>
     </div>
+  </div>
+
+  <div class="permanence-note">
+    <strong>This is a long-term decision.</strong> With good care, a crown can often last a lifetime — it isn't something that gets simply swapped out afterward. It's worth choosing the material you'll be happy with for the long run before your appointment.
   </div>
 
   <div class="calc">
@@ -129,7 +224,7 @@ function calc(){
   document.getElementById('out').textContent = '£' + monthly.toFixed(2);
 }
 
-// ---- Fill from URL params: ?name=&practice=&phone=&nhsfee=&fee= ----
+// ---- Fill from URL params: ?name=&practice=&phone=&nhsfee=&fee=&tooth= ----
 (function(){
   const p = new URLSearchParams(window.location.search);
   const name = p.get('name');
@@ -137,9 +232,14 @@ function calc(){
   const phone = p.get('phone') || '';
   const nhsFee = p.get('nhsfee');
   const fee = p.get('fee');
+  const tooth = p.get('tooth');
 
   if(name) document.getElementById('subline').textContent = `Prepared for ${name} — ${practice}`;
   else document.getElementById('subline').textContent = `Prepared for you — ${practice}`;
+
+  const toothPhrase = tooth ? `this tooth (${tooth})` : 'this tooth';
+  document.getElementById('leadLine').textContent =
+    `Your dentist has recommended a crown for ${toothPhrase} — to strengthen it and stop that breakdown before it happens.`;
 
   if(nhsFee) document.getElementById('nhsPrice').innerHTML = `£${nhsFee}<span style="font-size:.6em;color:var(--sub);"> (Band 3)</span>`;
   if(fee){
