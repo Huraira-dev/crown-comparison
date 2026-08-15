@@ -48,6 +48,10 @@
   .branch.good .step{background:var(--accent-bg); color:#1d4b47;}
   .branch.good .step .num{background:var(--accent);}
   .step-arrow{text-align:center; font-size:.85rem; opacity:.5; margin:0;}
+  .step-total{border-radius:8px; padding:12px; margin-top:8px; text-align:center; font-size:.9rem; font-weight:700;}
+  .branch.bad .step-total{background:#f5d8ce; color:#7a2e1c;}
+  .branch.good .step-total{background:#cfe6e3; color:#1d4b47;}
+  .step-total .amount{font-size:1.15rem;}
 
   .false-economy{
     background:var(--gold-bg); border:1px solid #ecdba8; border-radius:10px; padding:14px 16px;
@@ -80,8 +84,9 @@
   .keep-place strong{color:var(--accent);}
 
   .cta{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:24px;}
-  .btn{padding:12px 22px; border-radius:999px; border:none; font-size:.95rem; cursor:pointer; font-weight:600;}
+  .btn{padding:12px 22px; border-radius:999px; border:none; font-size:.95rem; cursor:pointer; font-weight:600; text-decoration:none; display:inline-block; text-align:center;}
   .btn.primary{background:var(--accent); color:#fff;}
+  .btn.whatsapp{background:#25D366; color:#fff;}
   .btn.ghost{background:transparent; border:1px solid var(--line); color:var(--ink);}
 
   footer{text-align:center; font-size:.78rem; color:var(--sub); line-height:1.5;}
@@ -100,20 +105,6 @@
   <div class="flow">
     <h3>Two paths from here</h3>
     <div class="flow-branches">
-      <div class="branch bad">
-        <div class="branch-title bad">⏳ Wait for your NHS checkup</div>
-        <ul class="step-list">
-          <li class="step"><span class="num">1</span><strong>NHS checkup — often years away</strong>Availability varies, but a wait of 1–3+ years for a routine slot isn't unusual right now.</li>
-          <li class="step-arrow">↓</li>
-          <li class="step"><span class="num">2</span><strong>Small decay goes unnoticed</strong>Without a checkup, early decay has nothing stopping it from spreading.</li>
-          <li class="step-arrow">↓</li>
-          <li class="step"><span class="num">3</span><strong>Decay gets larger</strong>What could've been a small filling now needs more tooth removed to fix.</li>
-          <li class="step-arrow">↓</li>
-          <li class="step"><span class="num">4</span><strong>Tooth needs extraction</strong>Another episode of pain, and another wait for an appointment to have it out.</li>
-          <li class="step-arrow">↓</li>
-          <li class="step"><span class="num">5</span><strong>Gap left behind</strong>Left to replace it: a denture or an implant — see costs below.</li>
-        </ul>
-      </div>
       <div class="branch good">
         <div class="branch-title good">✓ Book a private checkup now</div>
         <ul class="step-list">
@@ -125,16 +116,42 @@
           <li class="step-arrow">↓</li>
           <li class="step"><span class="num">4</span><strong>Problem solved</strong>Simpler process, fewer steps, no pain — and cheaper overall.</li>
         </ul>
+        <div class="step-total">Total potential cost: <span class="amount" id="totalGoodInline">£215</span></div>
+      </div>
+      <div class="branch bad">
+        <div class="branch-title bad">⏳ Wait for your NHS checkup</div>
+        <ul class="step-list">
+          <li class="step"><span class="num">1</span><strong>NHS checkup — often years away</strong>Availability varies, but a wait of 1–3+ years for a routine slot isn't unusual right now.</li>
+          <li class="step-arrow">↓</li>
+          <li class="step"><span class="num">2</span><strong>Small decay goes unnoticed</strong>Without a checkup, early decay has nothing stopping it from spreading.</li>
+          <li class="step-arrow">↓</li>
+          <li class="step"><span class="num">3</span><strong>Decay gets larger</strong>What could've been a small filling now needs more tooth removed to fix.</li>
+          <li class="step-arrow">↓</li>
+          <li class="step"><span class="num">4</span><strong>Tooth needs extraction</strong>Another episode of pain, and another wait for an appointment to have it out. Often, out of pain, patients choose to have it removed privately on an emergency basis instead — typically <span id="emergencyXlaInline">£400+</span>.</li>
+          <li class="step-arrow">↓</li>
+          <li class="step"><span class="num">5</span><strong>Gap left behind</strong>Left to replace it: a denture or an implant — see costs below. Many can't tolerate the gap, so end up getting a denture made privately — typically <span id="s5dentInline">£450</span>.</li>
+        </ul>
+        <div class="step-total">Total potential cost: <span class="amount" id="totalBadInline">£850+</span></div>
       </div>
     </div>
   </div>
 
   <div class="false-economy">
     <strong>Why most people wait — and why it's a false economy.</strong>
-    Booking privately today costs about <span id="feeDiffInline">£17</span> more than an NHS checkup (<span id="examFeeInline2">£45</span> private vs <span id="nhsBand1Inline">£27.90</span> NHS Band 1). That small saving is exactly why most people choose to wait. But if decay is missed and allowed to progress, the eventual cost of treating it — a filling that's grown into a crown, or worse, an extraction and a denture or implant — is often 10–50× higher than what you'd save by waiting.
+    Booking privately today costs about <span id="feeDiffInline">£17</span> more than an NHS checkup (<span id="examFeeInline2">£45</span> private vs <span id="nhsBand1Inline">£27.90</span> NHS Band 1). That small saving is exactly why most people choose to wait. But if decay is missed and allowed to progress, the eventual cost of treating it — a filling that's grown into a crown, or worse, an emergency private extraction and a denture or implant — is often far higher than what you'd save by waiting.
   </div>
 
   <div class="cols">
+    <div class="card bad">
+      <h2>Wait for NHS — hole caught later, bigger job</h2>
+      <p class="option-tag">DECAY HAS GROWN</p>
+      <div class="price" id="stage2Price">£699</div>
+      <ul>
+        <li><span class="tick">✗</span> Filling no longer enough — needs a crown/onlay</li>
+        <li><span class="tick">✗</span> More tooth structure lost</li>
+        <li><span class="tick">✗</span> More time in the chair</li>
+      </ul>
+    </div>
     <div class="card good">
       <span class="badge">CATCH IT EARLY</span>
       <h2>Private checkup, treated now</h2>
@@ -147,17 +164,7 @@
       </ul>
     </div>
     <div class="card bad">
-      <h2>Caught later, bigger job</h2>
-      <p class="option-tag">DECAY HAS GROWN</p>
-      <div class="price" id="stage2Price">£699</div>
-      <ul>
-        <li><span class="tick">✗</span> Filling no longer enough — needs a crown/onlay</li>
-        <li><span class="tick">✗</span> More tooth structure lost</li>
-        <li><span class="tick">✗</span> More time in the chair</li>
-      </ul>
-    </div>
-    <div class="card bad">
-      <h2>Caught too late</h2>
+      <h2>Wait for NHS — caught too late</h2>
       <p class="option-tag">TOOTH LOST — GAP TO REPLACE</p>
       <div class="price" id="stage3Price">£120 – £2,400+</div>
       <ul>
@@ -173,8 +180,8 @@
   </div>
 
   <div class="cta">
-    <button class="btn primary" onclick="alert('Wire this to your booking system')">Book My Private Checkup — <span id="ctaFee">£45</span></button>
-    <button class="btn ghost" onclick="alert('Wire this to your call/enquiry flow')">Ask a Question First</button>
+    <a class="btn primary" href="https://onlineappointment.carestack.uk/?dn=empirehouse&ln=1&rwg_token=AE37R_jQfRMfbw33tp3HGIb7nADvqQQmzvduEWkddbtFMTkwliMQ0BGXcsHbD4DB0wq3ysOxXPNkmCWLWb_yj9eYXAJNETbgIg%3D%3D" target="_blank" rel="noopener">Book My Checkup — <span id="ctaFee">£45</span></a>
+    <a class="btn whatsapp" href="https://wa.me/447955293281?text=Hi%2C%20I%27m%20interested%20in%20booking%20a%20checkup.." target="_blank" rel="noopener">Message Us on WhatsApp</a>
   </div>
 
   <footer id="footerLine">
@@ -184,7 +191,7 @@
 
 <script>
 // ---- Fill from URL params ----
-// ?name=&practice=&phone=&examfee=&nhsband1=&fillingfee=&biggerfee=&extractionfee=&denturefee=&implantfee=
+// ?name=&practice=&phone=&examfee=&nhsband1=&fillingfee=&biggerfee=&extractionfee=&denturefee=&implantfee=&emergencyxlafee=
 (function(){
   const p = new URLSearchParams(window.location.search);
   const name = p.get('name');
@@ -198,6 +205,7 @@
   const extractionFee = parseFloat(p.get('extractionfee')) || 120;
   const dentureFee = parseFloat(p.get('denturefee')) || 450;
   const implantFee = parseFloat(p.get('implantfee')) || 2400;
+  const emergencyXlaFee = parseFloat(p.get('emergencyxlafee')) || 400;
 
   const fmt = n => '£' + n.toLocaleString('en-GB', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
 
@@ -210,11 +218,15 @@
   document.getElementById('feeDiffInline').textContent = fmt(Math.max(0, examFee - nhsBand1));
   document.querySelectorAll('#fillingFeeInline, #s1fill').forEach(el => el.textContent = fmt(fillingFee));
   document.getElementById('stage1Price').textContent = fmt(examFee + fillingFee);
+  document.getElementById('totalGoodInline').textContent = fmt(examFee + fillingFee);
   document.getElementById('stage2Price').textContent = fmt(biggerFee);
   document.getElementById('s3xla').textContent = fmt(extractionFee);
   document.getElementById('s3dent').textContent = fmt(dentureFee);
   document.getElementById('s3imp').textContent = fmt(implantFee);
   document.getElementById('stage3Price').textContent = fmt(extractionFee + dentureFee) + ' – ' + fmt(extractionFee + implantFee) + '+';
+  document.getElementById('emergencyXlaInline').textContent = fmt(emergencyXlaFee) + '+';
+  document.getElementById('s5dentInline').textContent = fmt(dentureFee);
+  document.getElementById('totalBadInline').textContent = fmt(emergencyXlaFee + dentureFee) + '+';
 
   if(phone) document.getElementById('footerLine').innerHTML = `Questions? Reply to the text message we sent you or call ${phone}.`;
 })();
