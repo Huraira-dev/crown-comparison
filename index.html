@@ -7,14 +7,14 @@
   :root{
     --ink:#1c2b2d; --sub:#5b6b6d; --line:#e3e8e8;
     --accent:#2f6f6b; --accent-bg:#eaf4f3; --bg:#fafbfb; --card:#fff;
-    --warn:#b3492f; --warn-bg:#fbeeeb;
+    --warn:#b3492f; --warn-bg:#fbeeeb; --gold:#a97a1f; --gold-bg:#fbf3e2;
   }
   *{box-sizing:border-box;}
   body{
     margin:0; font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;
     background:var(--bg); color:var(--ink); padding:32px 16px;
   }
-  .wrap{max-width:780px; margin:0 auto;}
+  .wrap{max-width:860px; margin:0 auto;}
 
   header{text-align:center; margin-bottom:24px;}
   .eyebrow{
@@ -48,19 +48,27 @@
   .box.good{background:var(--accent-bg); border:1px solid #bcdad7; color:#1d4b47;}
   .box strong{display:block; margin-bottom:4px; font-size:.88rem;}
 
-  .cols{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;}
-  @media(max-width:600px){.cols{grid-template-columns:1fr;}}
-  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px;}
+  .cols{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:16px; align-items:stretch;}
+  @media(max-width:760px){.cols{grid-template-columns:1fr;}}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; display:flex; flex-direction:column;}
   .card.private{border:2px solid var(--accent); position:relative;}
+  .card.gold{border:1px solid #e3cf9a;}
   .badge{position:absolute; top:-11px; left:16px; background:var(--accent); color:#fff;
     font-size:.7rem; padding:3px 10px; border-radius:999px; letter-spacing:.03em;}
   .card-head{display:flex; align-items:center; gap:10px; margin-bottom:2px;}
-  .card h2{font-size:1.1rem; margin:0;}
-  .price{font-size:1.6rem; font-weight:700; margin:6px 0 14px;}
-  .card ul{list-style:none; padding:0; margin:0; font-size:.9rem; color:var(--ink);}
+  .card h2{font-size:1.05rem; margin:0;}
+  .option-tag{
+    font-size:.72rem; font-weight:700; letter-spacing:.02em; margin:6px 0 10px; padding:4px 0;
+  }
+  .card .option-tag{color:var(--sub);}
+  .card.private .option-tag{color:var(--accent);}
+  .card.gold .option-tag{color:var(--gold);}
+  .price{font-size:1.5rem; font-weight:700; margin:0 0 14px;}
+  .card ul{list-style:none; padding:0; margin:0 0 auto; font-size:.87rem; color:var(--ink);}
   .card li{padding:6px 0; border-top:1px solid var(--line); display:flex; gap:8px;}
   .card li:first-child{border-top:none;}
   .tick{color:var(--accent); flex-shrink:0;}
+  .card.gold .tick{color:var(--gold);}
 
   .permanence-note{
     background:#fff8ea; border:1px solid #ecdba8; border-radius:10px; padding:14px 16px;
@@ -135,7 +143,7 @@
   <div class="cols">
     <div class="card">
       <div class="card-head">
-        <svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true">
+        <svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true">
           <defs><linearGradient id="silverGrad" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#dfe3e5"/><stop offset="100%" stop-color="#9aa0a6"/>
           </linearGradient></defs>
@@ -143,6 +151,7 @@
         </svg>
         <h2>NHS Crown</h2>
       </div>
+      <p class="option-tag">BEST BUDGET OPTION</p>
       <div class="price" id="nhsPrice">£319.10<span style="font-size:.6em;color:var(--sub);"> (Band 3)</span></div>
       <ul>
         <li><span class="tick">✓</span> Metal / metal-ceramic — silver-coloured</li>
@@ -152,9 +161,9 @@
       </ul>
     </div>
     <div class="card private">
-      <span class="badge">RECOMMENDED FOR VISIBLE TEETH</span>
+      <span class="badge">RECOMMENDED</span>
       <div class="card-head">
-        <svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true">
+        <svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true">
           <defs><linearGradient id="enamelGrad" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#fffaf0"/><stop offset="100%" stop-color="#f0e2c0"/>
           </linearGradient></defs>
@@ -162,12 +171,32 @@
         </svg>
         <h2>Private Crown</h2>
       </div>
+      <p class="option-tag">BEST VALUE FOR MONEY &amp; AESTHETICS</p>
       <div class="price" id="privatePrice">£650</div>
       <ul>
         <li><span class="tick">✓</span> Full ceramic / zirconia — natural tooth colour match</li>
         <li><span class="tick">✓</span> Precision digital scan, no messy impressions</li>
         <li><span class="tick">✓</span> Choice of premium UK lab</li>
         <li><span class="tick">✓</span> Longer typical lifespan with premium materials</li>
+      </ul>
+    </div>
+    <div class="card gold">
+      <div class="card-head">
+        <svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true">
+          <defs><linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f7e39a"/><stop offset="100%" stop-color="#b9862a"/>
+          </linearGradient></defs>
+          <path d="M20,68 Q20,18 50,14 Q80,18 80,68 Q80,84 50,90 Q20,84 20,68 Z" fill="url(#goldGrad)" stroke="#96701f" stroke-width="2"/>
+        </svg>
+        <h2>Gold Crown</h2>
+      </div>
+      <p class="option-tag">BEST PREMIUM OPTION</p>
+      <div class="price" id="goldPrice">£950</div>
+      <ul>
+        <li><span class="tick">✓</span> Gold alloy — exceptional strength &amp; longevity</li>
+        <li><span class="tick">✓</span> Gentlest on opposing teeth over time</li>
+        <li><span class="tick">✓</span> Excellent long-term track record</li>
+        <li><span class="tick">✓</span> Best suited to back teeth, less visible</li>
       </ul>
     </div>
   </div>
@@ -224,7 +253,7 @@ function calc(){
   document.getElementById('out').textContent = '£' + monthly.toFixed(2);
 }
 
-// ---- Fill from URL params: ?name=&practice=&phone=&nhsfee=&fee=&tooth= ----
+// ---- Fill from URL params: ?name=&practice=&phone=&nhsfee=&fee=&goldfee=&tooth= ----
 (function(){
   const p = new URLSearchParams(window.location.search);
   const name = p.get('name');
@@ -232,6 +261,7 @@ function calc(){
   const phone = p.get('phone') || '';
   const nhsFee = p.get('nhsfee');
   const fee = p.get('fee');
+  const goldFee = p.get('goldfee');
   const tooth = p.get('tooth');
 
   if(name) document.getElementById('subline').textContent = `Prepared for ${name} — ${practice}`;
@@ -247,6 +277,7 @@ function calc(){
     document.getElementById('amount').value = fee;
     calc();
   }
+  if(goldFee) document.getElementById('goldPrice').textContent = `£${goldFee}`;
   if(phone) document.getElementById('footerLine').innerHTML =
     `Questions? Reply to the text message we sent you or call ${phone}.<br>A reminder will follow automatically in 3 days if we don't hear back.`;
 })();
