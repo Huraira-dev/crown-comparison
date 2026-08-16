@@ -106,20 +106,12 @@
   .result b{font-size:1.3rem; color:var(--accent);}
   .fine{font-size:.7rem; color:var(--sub); margin-top:6px;}
 
-  .cta-form{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; margin-bottom:14px; text-align:center;}
+  .cta-form{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; margin-bottom:20px; text-align:center;}
   .cta-form h3{margin:0 0 4px; font-size:.95rem;}
   .cta-sub{color:var(--sub); font-size:.8rem; margin:0 0 14px;}
-  .cta-row{display:flex; gap:12px; flex-wrap:wrap; align-items:end; justify-content:center; margin-bottom:14px;}
-  .cta-row .field input{width:170px;}
-  .cta-error{color:var(--warn); font-size:.78rem; margin:-6px 0 12px;}
-
-  .cta{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:20px;}
-  .btn{padding:13px 24px; border-radius:999px; border:none; font-size:.95rem; cursor:pointer; font-weight:700; box-shadow:0 4px 14px rgba(28,43,45,.14); display:inline-flex; align-items:center; gap:8px;}
+  .btn{padding:13px 24px; border-radius:999px; border:none; font-size:.95rem; cursor:pointer; font-weight:700; box-shadow:0 4px 14px rgba(28,43,45,.14); display:inline-flex; align-items:center; gap:8px; text-decoration:none;}
   .btn.primary{background:var(--accent); color:#fff;}
-  .btn.ghost{background:transparent; border:1px solid var(--line); color:var(--ink); box-shadow:none;}
   .btn.whatsapp{background:#25D366; color:#fff;}
-
-  footer{text-align:center; font-size:.75rem; color:var(--sub); line-height:1.5;}
 </style>
 </head>
 <body>
@@ -279,30 +271,10 @@
   </div>
 
   <div class="cta-form">
-    <h3>Want the tooth-coloured crown instead?</h3>
-    <p class="cta-sub">Send this straight to reception on WhatsApp and we'll get you booked in.</p>
-    <div class="cta-row">
-      <div class="field">
-        <label for="ctaName">Your name</label>
-        <input id="ctaName" type="text" placeholder="Full name">
-      </div>
-      <div class="field">
-        <label for="ctaDob">Date of birth</label>
-        <input id="ctaDob" type="text" placeholder="DD/MM/YYYY">
-      </div>
-    </div>
-    <div id="ctaError" class="cta-error" style="display:none;"></div>
-    <button class="btn whatsapp" onclick="sendWhatsApp()"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 1.67c2.14 0 4.15.83 5.66 2.35a7.95 7.95 0 012.35 5.66c0 4.42-3.6 8.02-8.02 8.02h-.01c-1.48 0-2.93-.41-4.19-1.18l-.3-.18-3.12.82.83-3.04-.2-.31a7.93 7.93 0 01-1.24-4.27c0-4.42 3.6-8.02 8.02-8.02zm-3.85 4.34c-.15 0-.4.06-.6.28-.2.22-.79.77-.79 1.88 0 1.1.81 2.17.92 2.32.11.15 1.58 2.5 3.9 3.44 1.94.78 2.34.63 2.76.59.42-.04 1.36-.55 1.55-1.09.19-.53.19-.98.14-1.08-.06-.1-.21-.16-.44-.28-.23-.11-1.36-.67-1.57-.75-.21-.08-.36-.11-.51.11-.15.22-.58.75-.71.9-.13.15-.26.17-.49.06-.23-.11-.96-.35-1.83-1.13-.68-.6-1.13-1.35-1.27-1.58-.13-.22-.01-.34.1-.45.11-.11.23-.28.35-.42.11-.14.15-.24.23-.4.08-.15.04-.29-.02-.4-.06-.11-.5-1.29-.71-1.76-.19-.45-.38-.39-.51-.4-.13-.01-.28-.01-.43-.01z"/></svg>Message Reception on WhatsApp</button>
+    <h3>Thinking of having the tooth-coloured crown instead?</h3>
+    <p class="cta-sub">Let reception know using the link below:</p>
+    <a id="waLink" class="btn whatsapp" href="https://wa.me/447955293281" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 1.67c2.14 0 4.15.83 5.66 2.35a7.95 7.95 0 012.35 5.66c0 4.42-3.6 8.02-8.02 8.02h-.01c-1.48 0-2.93-.41-4.19-1.18l-.3-.18-3.12.82.83-3.04-.2-.31a7.93 7.93 0 01-1.24-4.27c0-4.42 3.6-8.02 8.02-8.02zm-3.85 4.34c-.15 0-.4.06-.6.28-.2.22-.79.77-.79 1.88 0 1.1.81 2.17.92 2.32.11.15 1.58 2.5 3.9 3.44 1.94.78 2.34.63 2.76.59.42-.04 1.36-.55 1.55-1.09.19-.53.19-.98.14-1.08-.06-.1-.21-.16-.44-.28-.23-.11-1.36-.67-1.57-.75-.21-.08-.36-.11-.51.11-.15.22-.58.75-.71.9-.13.15-.26.17-.49.06-.23-.11-.96-.35-1.83-1.13-.68-.6-1.13-1.35-1.27-1.58-.13-.22-.01-.34.1-.45.11-.11.23-.28.35-.42.11-.14.15-.24.23-.4.08-.15.04-.29-.02-.4-.06-.11-.5-1.29-.71-1.76-.19-.45-.38-.39-.51-.4-.13-.01-.28-.01-.43-.01z"/></svg>Message Reception on WhatsApp</a>
   </div>
-
-  <div class="cta">
-    <button class="btn ghost" onclick="alert('Link to digital consent form')">Review &amp; Sign Consent Form</button>
-  </div>
-
-  <footer id="footerLine">
-    Questions? Reply to the text message we sent you or call [Practice Phone].<br>
-    A reminder will follow automatically in 3 days if we don't hear back.
-  </footer>
 </div>
 
 <script>
@@ -317,32 +289,11 @@ function calc(){
   document.getElementById('out').textContent = '£' + monthly.toFixed(2);
 }
 
-function sendWhatsApp(){
-  const nameEl = document.getElementById('ctaName');
-  const dobEl = document.getElementById('ctaDob');
-  const errEl = document.getElementById('ctaError');
-  const name = nameEl.value.trim();
-  const dob = dobEl.value.trim();
-  if(!name || !dob){
-    errEl.textContent = 'Please enter your name and date of birth so reception can find your record.';
-    errEl.style.display = 'block';
-    return;
-  }
-  errEl.style.display = 'none';
-  const p = new URLSearchParams(window.location.search);
-  const tooth = p.get('tooth');
-  const toothPart = tooth ? ` (tooth ${tooth})` : '';
-  const msg = `Hi, my name is ${name} and my date of birth is ${dob}. I saw my crown options online and I'd like to go ahead with the tooth-coloured Ceramic crown${toothPart} instead of the metal one. Thank you!`;
-  const url = 'https://wa.me/447955293281?text=' + encodeURIComponent(msg);
-  window.open(url, '_blank', 'noopener');
-}
-
-// ---- Fill from URL params: ?name=&practice=&phone=&nhsfee=&fee=&goldfee=&tooth= ----
+// ---- Fill from URL params: ?name=&practice=&nhsfee=&fee=&goldfee=&tooth= ----
 (function(){
   const p = new URLSearchParams(window.location.search);
   const name = p.get('name');
   const practice = p.get('practice') || 'Empire House Dental Surgery';
-  const phone = p.get('phone') || '';
   const nhsFee = p.get('nhsfee');
   const fee = p.get('fee');
   const goldFee = p.get('goldfee');
@@ -360,8 +311,10 @@ function sendWhatsApp(){
     calc();
   }
   if(goldFee) document.getElementById('goldPrice').textContent = `£${goldFee}`;
-  if(phone) document.getElementById('footerLine').innerHTML =
-    `Questions? Reply to the text message we sent you or call ${phone}.<br>A reminder will follow automatically in 3 days if we don't hear back.`;
+
+  const toothPart = tooth ? ` (tooth ${tooth})` : '';
+  const waMsg = `Hi, I'd like to go ahead with the tooth-coloured Ceramic crown instead of the metal one${toothPart}.\nMy name is: \nDate of birth: \nThank you!`;
+  document.getElementById('waLink').href = 'https://wa.me/447955293281?text=' + encodeURIComponent(waMsg);
 })();
 </script>
 </body>
