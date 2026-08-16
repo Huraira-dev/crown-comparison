@@ -317,8 +317,8 @@ function calc(){
   }
   if(goldFee) document.getElementById('goldPrice').textContent = `£${goldFee}`;
 
-  const toothPart = tooth ? ` (tooth ${tooth})` : '';
-  const waMsg = `Hi, I'd like to go ahead with the tooth-coloured Ceramic crown instead of the metal one${toothPart}.\nMy name is: \nDate of birth: \nThank you!`;
+  const toothPart = tooth ? ` for tooth ${tooth}` : '';
+  const waMsg = `Hi, I've just seen your email and wanted to upgrade to the tooth-coloured crown for my coming appointment${toothPart}. Thanks!`;
   document.getElementById('waLink').href = 'https://wa.me/447955293281?text=' + encodeURIComponent(waMsg);
 })();
 </script>
