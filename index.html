@@ -66,10 +66,10 @@
     font-size:.68rem; padding:3px 10px; border-radius:999px; letter-spacing:.03em; white-space:nowrap;}
   .card svg{margin:0 auto 6px;}
   .card h2{font-size:1rem; margin:0 0 2px;}
-  .option-tag{font-size:.68rem; font-weight:700; letter-spacing:.02em; margin:0 0 8px;}
-  .card .option-tag{color:var(--sub);}
-  .card.private .option-tag{color:var(--accent);}
-  .card.gold .option-tag{color:var(--gold);}
+  .tag-line{font-size:.68rem; font-weight:700; letter-spacing:.02em; border-top:none !important; padding-bottom:6px !important;}
+  .card .tag-line{color:var(--sub);}
+  .card.private .tag-line{color:var(--accent);}
+  .card.gold .tag-line{color:var(--gold);}
   .price{font-size:1.4rem; font-weight:700; margin:0 0 10px;}
   .price small{font-size:.55em; font-weight:500; color:var(--sub);}
   .card ul{list-style:none; padding:0; margin:0 0 6px; font-size:.82rem; color:var(--ink); text-align:left;}
@@ -78,7 +78,16 @@
   .tick{color:var(--accent); flex-shrink:0;}
   .tick.warn{color:var(--warn);}
   .card.gold .tick{color:var(--gold);}
-  .visual-note{font-size:.66rem; color:var(--sub); margin-top:auto; padding-top:8px;}
+
+  .bite-arrow{animation:biteForce 1.6s ease-in-out infinite; transform-origin:8px 0;}
+  .bite-arrow.d2{animation-delay:.8s;}
+  @keyframes biteForce{
+    0%,100%{transform:translateY(0); opacity:.45;}
+    50%{transform:translateY(6px); opacity:1;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .bite-arrow{animation:none; opacity:.7;}
+  }
 
   .permanence-note{
     background:#fff8ea; border:1px solid #ecdba8; border-radius:10px; padding:11px 14px;
@@ -97,10 +106,18 @@
   .result b{font-size:1.3rem; color:var(--accent);}
   .fine{font-size:.7rem; color:var(--sub); margin-top:6px;}
 
+  .cta-form{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; margin-bottom:14px; text-align:center;}
+  .cta-form h3{margin:0 0 4px; font-size:.95rem;}
+  .cta-sub{color:var(--sub); font-size:.8rem; margin:0 0 14px;}
+  .cta-row{display:flex; gap:12px; flex-wrap:wrap; align-items:end; justify-content:center; margin-bottom:14px;}
+  .cta-row .field input{width:170px;}
+  .cta-error{color:var(--warn); font-size:.78rem; margin:-6px 0 12px;}
+
   .cta{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:20px;}
-  .btn{padding:13px 24px; border-radius:999px; border:none; font-size:.95rem; cursor:pointer; font-weight:700; box-shadow:0 4px 14px rgba(28,43,45,.14);}
+  .btn{padding:13px 24px; border-radius:999px; border:none; font-size:.95rem; cursor:pointer; font-weight:700; box-shadow:0 4px 14px rgba(28,43,45,.14); display:inline-flex; align-items:center; gap:8px;}
   .btn.primary{background:var(--accent); color:#fff;}
   .btn.ghost{background:transparent; border:1px solid var(--line); color:var(--ink); box-shadow:none;}
+  .btn.whatsapp{background:#25D366; color:#fff;}
 
   footer{text-align:center; font-size:.75rem; color:var(--sub); line-height:1.5;}
 </style>
@@ -115,34 +132,57 @@
 
   <div class="flow">
     <h3>Why your dentist recommended a crown</h3>
+    <p style="text-align:center; color:var(--sub); font-size:.76rem; margin:-4px 0 10px;">Back tooth shown from above &mdash; the existing filling is large, and the remaining wall of tooth around it is thin and under constant biting force</p>
     <div class="tooth-stage">
-      <svg width="160" height="140" viewBox="0 0 160 140" aria-hidden="true">
-        <circle class="tooth-glow" cx="80" cy="70" r="36" fill="#b3492f"/>
-        <path d="M55,118 C50,148 55,168 62,174 L68,174 C66,158 65,138 68,118 Z" fill="#f4f1e8" stroke="#cfc9b8" stroke-width="2" transform="translate(0,-22)"/>
-        <path d="M105,118 C110,148 105,168 98,174 L92,174 C94,158 95,138 92,118 Z" fill="#f4f1e8" stroke="#cfc9b8" stroke-width="2" transform="translate(0,-22)"/>
-        <path d="M28,58 Q28,18 80,16 Q132,18 132,58 Q132,98 112,118 L48,118 Q28,98 28,58 Z" fill="#f4f1e8" stroke="#cfc9b8" stroke-width="3" transform="translate(0,-8)"/>
-        <path d="M44,44 Q80,26 116,44 Q122,70 100,88 Q80,98 60,88 Q38,70 44,44 Z" fill="#9aa0a6" transform="translate(0,-8)"/>
-        <path class="crack-path" pathLength="1" d="M60,34 L72,44 L64,54 L78,66 L70,80" stroke="#b3492f" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,-8)"/>
+      <svg width="180" height="150" viewBox="0 0 200 170" aria-hidden="true">
+        <defs><linearGradient id="fillGradFlow" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#e6e9eb"/><stop offset="100%" stop-color="#9aa0a6"/>
+        </linearGradient></defs>
+        <g transform="translate(78,6)">
+          <g class="bite-arrow"><path d="M0,0 L9,11 L18,0" fill="none" stroke="var(--warn)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+        </g>
+        <g transform="translate(146,6)">
+          <g class="bite-arrow d2"><path d="M0,0 L9,11 L18,0" fill="none" stroke="var(--warn)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+        </g>
+        <g transform="translate(30,36)">
+          <rect x="10" y="10" width="140" height="100" rx="32" fill="#f4f1e8" stroke="#cfc9b8" stroke-width="3"/>
+          <circle cx="40" cy="35" r="26" fill="#f4f1e8" stroke="#cfc9b8" stroke-width="2"/>
+          <circle cx="120" cy="35" r="26" fill="#f4f1e8" stroke="#cfc9b8" stroke-width="2"/>
+          <circle cx="40" cy="95" r="26" fill="#f4f1e8" stroke="#cfc9b8" stroke-width="2"/>
+          <circle cx="120" cy="95" r="26" fill="#f4f1e8" stroke="#cfc9b8" stroke-width="2"/>
+          <path d="M40,35 L120,35 M40,95 L120,95 M80,20 L80,110" stroke="#cfc9b8" stroke-width="2" fill="none" opacity=".55"/>
+          <path d="M95,15 Q140,15 145,45 Q148,75 118,88 Q90,98 78,70 Q68,45 95,15 Z" fill="url(#fillGradFlow)" stroke="#7d8388" stroke-width="2.5"/>
+          <path class="crack-path" pathLength="1" d="M78,70 L60,80 L66,92 L45,108" stroke="#b3492f" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
       </svg>
     </div>
     <div class="outcomes">
       <div class="outcome bad">
-        <svg width="44" height="50" viewBox="0 0 80 90" aria-hidden="true">
-          <path d="M38,8 Q15,10 15,42 Q15,66 27,76 L35,76 L37,42 Q35,24 38,8 Z" fill="#e6c3b8" stroke="#b3492f" stroke-width="2"/>
-          <path d="M42,10 Q64,12 64,44 Q64,68 53,78 L45,78 L43,44 Q41,26 42,10 Z" fill="#e6c3b8" stroke="#b3492f" stroke-width="2"/>
-          <path d="M39,38 L50,32 L46,47 L54,44 L41,58 L45,46 L37,49 Z" fill="#b3492f"/>
+        <svg width="50" height="50" viewBox="0 0 120 120" aria-hidden="true">
+          <rect x="10" y="10" width="100" height="100" rx="26" fill="#e6c3b8" stroke="#b3492f" stroke-width="2.5"/>
+          <circle cx="35" cy="30" r="20" fill="#e6c3b8" stroke="#b3492f" stroke-width="1.5"/>
+          <circle cx="85" cy="30" r="20" fill="#e6c3b8" stroke="#b3492f" stroke-width="1.5"/>
+          <circle cx="35" cy="80" r="20" fill="#e6c3b8" stroke="#b3492f" stroke-width="1.5"/>
+          <circle cx="85" cy="80" r="20" fill="#e6c3b8" stroke="#b3492f" stroke-width="1.5"/>
+          <path d="M70,12 Q98,12 100,32 Q102,52 82,58 Q66,44 70,12 Z" fill="#9aa0a6" stroke="#7d8388" stroke-width="2"/>
+          <path d="M70,55 L52,64 L58,76 L38,92" stroke="#b3492f" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22,96 L36,91 L33,110 L18,108 Z" fill="#e6c3b8" stroke="#b3492f" stroke-width="2" opacity=".9"/>
         </svg>
         <div class="label">Left as is</div>
-        <div class="sub">cracks &amp; breaks further</div>
+        <div class="sub">cusp cracks &amp; breaks off</div>
       </div>
       <div class="outcome good">
-        <svg width="44" height="50" viewBox="0 0 80 90" aria-hidden="true">
-          <path d="M18,58 Q18,18 40,14 Q62,18 62,58 Q62,72 40,78 Q18,72 18,58 Z" fill="#bcdad7" stroke="#2f6f6b" stroke-width="2" transform="translate(4,2)"/>
-          <path d="M55,60 L68,64 L68,74 Q68,84 55,88 Q42,84 42,74 L42,64 Z" fill="#2f6f6b"/>
-          <path d="M47,75 L52,80 L61,68" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg width="50" height="50" viewBox="0 0 120 120" aria-hidden="true">
+          <rect x="10" y="10" width="100" height="100" rx="26" fill="#bcdad7" stroke="#2f6f6b" stroke-width="2.5"/>
+          <circle cx="35" cy="30" r="20" fill="#bcdad7" stroke="#2f6f6b" stroke-width="1.5"/>
+          <circle cx="85" cy="30" r="20" fill="#bcdad7" stroke="#2f6f6b" stroke-width="1.5"/>
+          <circle cx="35" cy="80" r="20" fill="#bcdad7" stroke="#2f6f6b" stroke-width="1.5"/>
+          <circle cx="85" cy="80" r="20" fill="#bcdad7" stroke="#2f6f6b" stroke-width="1.5"/>
+          <circle cx="88" cy="86" r="26" fill="#2f6f6b"/>
+          <path d="M76,86 L84,94 L100,74" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <div class="label">Crown fitted</div>
-        <div class="sub">protected long-term</div>
+        <div class="sub">whole tooth protected</div>
       </div>
     </div>
   </div>
@@ -159,13 +199,13 @@
         <path d="M70,32 Q70,96 100,106 Q130,96 130,32 Q100,16 70,32 Z" fill="url(#silverGrad)" stroke="#7d8388" stroke-width="2.5"/>
       </svg>
       <h2>NHS Crown</h2>
-      <p class="option-tag">BUDGET OPTION</p>
       <div class="price" id="nhsPrice">£332.10<small> (Band 3)</small></div>
       <ul>
-        <li><span class="tick">✓</span> Metal — silver-coloured, durable</li>
+        <li class="tag-line">BUDGET OPTION</li>
+        <li><span class="tick">✓</span> Durable — resists heavy chewing forces well</li>
+        <li><span class="tick warn">⚠</span> Visibly silver/grey — won't blend with your other teeth</li>
         <li><span class="tick warn">⚠</span> Metal edge can become visible at the gumline over time</li>
       </ul>
-      <div class="visual-note">Example only — final shade/fit may vary</div>
     </div>
     <div class="card private">
       <span class="badge">RECOMMENDED</span>
@@ -178,16 +218,15 @@
         </linearGradient></defs>
         <path d="M70,32 Q70,96 100,106 Q130,96 130,32 Q100,16 70,32 Z" fill="url(#enamelGrad)" stroke="#d8c79a" stroke-width="2.5"/>
       </svg>
-      <h2>Private Crown</h2>
-      <p class="option-tag">BEST VALUE &amp; LOOKS</p>
+      <h2>Ceramic Crown</h2>
       <div class="price" id="privatePrice">£699</div>
       <ul>
-        <li><span class="tick">✓</span> Ceramic — blends with your teeth</li>
+        <li class="tag-line">BEST VALUE &amp; LOOKS</li>
+        <li><span class="tick">✓</span> Tooth-coloured — blends with your teeth</li>
         <li><span class="tick">✓</span> Socially seamless — smile, laugh, and speak with total confidence</li>
         <li><span class="tick">✓</span> Completely metal-free for a bright, healthy look</li>
         <li><span class="tick">✓</span> Longer typical lifespan</li>
       </ul>
-      <div class="visual-note">Example only — final shade/fit may vary</div>
     </div>
     <div class="card gold">
       <svg width="120" height="76" viewBox="0 0 200 120" aria-hidden="true">
@@ -200,22 +239,22 @@
         <path d="M70,32 Q70,96 100,106 Q130,96 130,32 Q100,16 70,32 Z" fill="url(#goldGrad)" stroke="#96701f" stroke-width="2.5"/>
       </svg>
       <h2>Gold Crown</h2>
-      <p class="option-tag">PREMIUM OPTION</p>
       <div class="price" id="goldPrice">£1200</div>
       <ul>
-        <li><span class="tick">✓</span> Strongest &amp; longest-lasting</li>
-        <li><span class="tick">✓</span> Best suited to back teeth</li>
+        <li class="tag-line">PREMIUM OPTION</li>
+        <li><span class="tick">✓</span> Strongest &amp; most durable — resists chipping or cracking</li>
+        <li><span class="tick">✓</span> Won't wear down the teeth it bites against</li>
+        <li><span class="tick">✓</span> Best suited to back teeth, where its colour won't show</li>
       </ul>
-      <div class="visual-note">Example only — final shade/fit may vary</div>
     </div>
   </div>
 
   <div class="permanence-note">
-    <strong>This is a long-term decision</strong> — a crown can last a lifetime and isn't easily swapped out later, so it's worth choosing your material before your appointment.
+    <strong>This is a long-term decision</strong> — once a crown is fitted it isn't easily swapped out later. If you'd rather have the tooth-coloured option instead of metal, let us know before your appointment so we can arrange it for you.
   </div>
 
   <div class="calc">
-    <h3>Spread the cost of your private crown</h3>
+    <h3>Spread the cost of your tooth-coloured crown</h3>
     <div class="calc-row">
       <div class="field">
         <label for="amount">Treatment cost (£)</label>
@@ -239,8 +278,24 @@
     </div>
   </div>
 
+  <div class="cta-form">
+    <h3>Want the tooth-coloured crown instead?</h3>
+    <p class="cta-sub">Send this straight to reception on WhatsApp and we'll get you booked in.</p>
+    <div class="cta-row">
+      <div class="field">
+        <label for="ctaName">Your name</label>
+        <input id="ctaName" type="text" placeholder="Full name">
+      </div>
+      <div class="field">
+        <label for="ctaDob">Date of birth</label>
+        <input id="ctaDob" type="text" placeholder="DD/MM/YYYY">
+      </div>
+    </div>
+    <div id="ctaError" class="cta-error" style="display:none;"></div>
+    <button class="btn whatsapp" onclick="sendWhatsApp()"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 1.67c2.14 0 4.15.83 5.66 2.35a7.95 7.95 0 012.35 5.66c0 4.42-3.6 8.02-8.02 8.02h-.01c-1.48 0-2.93-.41-4.19-1.18l-.3-.18-3.12.82.83-3.04-.2-.31a7.93 7.93 0 01-1.24-4.27c0-4.42 3.6-8.02 8.02-8.02zm-3.85 4.34c-.15 0-.4.06-.6.28-.2.22-.79.77-.79 1.88 0 1.1.81 2.17.92 2.32.11.15 1.58 2.5 3.9 3.44 1.94.78 2.34.63 2.76.59.42-.04 1.36-.55 1.55-1.09.19-.53.19-.98.14-1.08-.06-.1-.21-.16-.44-.28-.23-.11-1.36-.67-1.57-.75-.21-.08-.36-.11-.51.11-.15.22-.58.75-.71.9-.13.15-.26.17-.49.06-.23-.11-.96-.35-1.83-1.13-.68-.6-1.13-1.35-1.27-1.58-.13-.22-.01-.34.1-.45.11-.11.23-.28.35-.42.11-.14.15-.24.23-.4.08-.15.04-.29-.02-.4-.06-.11-.5-1.29-.71-1.76-.19-.45-.38-.39-.51-.4-.13-.01-.28-.01-.43-.01z"/></svg>Message Reception on WhatsApp</button>
+  </div>
+
   <div class="cta">
-    <button class="btn primary" onclick="alert('Wire this to your booking system / SMS workflow')">Book My Private Crown</button>
     <button class="btn ghost" onclick="alert('Link to digital consent form')">Review &amp; Sign Consent Form</button>
   </div>
 
@@ -260,6 +315,26 @@ function calc(){
   if(r === 0){ monthly = amount/months; }
   else{ monthly = amount * r / (1 - Math.pow(1+r, -months)); }
   document.getElementById('out').textContent = '£' + monthly.toFixed(2);
+}
+
+function sendWhatsApp(){
+  const nameEl = document.getElementById('ctaName');
+  const dobEl = document.getElementById('ctaDob');
+  const errEl = document.getElementById('ctaError');
+  const name = nameEl.value.trim();
+  const dob = dobEl.value.trim();
+  if(!name || !dob){
+    errEl.textContent = 'Please enter your name and date of birth so reception can find your record.';
+    errEl.style.display = 'block';
+    return;
+  }
+  errEl.style.display = 'none';
+  const p = new URLSearchParams(window.location.search);
+  const tooth = p.get('tooth');
+  const toothPart = tooth ? ` (tooth ${tooth})` : '';
+  const msg = `Hi, my name is ${name} and my date of birth is ${dob}. I saw my crown options online and I'd like to go ahead with the tooth-coloured Ceramic crown${toothPart} instead of the metal one. Thank you!`;
+  const url = 'https://wa.me/447955293281?text=' + encodeURIComponent(msg);
+  window.open(url, '_blank', 'noopener');
 }
 
 // ---- Fill from URL params: ?name=&practice=&phone=&nhsfee=&fee=&goldfee=&tooth= ----
