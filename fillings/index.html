@@ -22,28 +22,18 @@ header{text-align:center; margin-bottom:20px;}
 header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
 .lead{color:var(--sub); font-size:.92rem; margin:0 auto; max-width:520px; line-height:1.5;}
 
-/* ---- why-replace diagram ---- */
+/* ---- why-a-filling diagram ---- */
 .flow{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; margin-bottom:20px;}
 .flow h3{margin:0 0 10px; font-size:.92rem; text-align:center; color:var(--sub); font-weight:600;}
 .tooth-stage{display:flex; justify-content:center; margin-bottom:8px;}
 .tooth-stage svg{overflow:visible;}
-.crack-path{stroke-dasharray:1; stroke-dashoffset:1; animation:crackDraw 3.2s ease-in-out infinite;}
-.tooth-glow{animation:pulseGlow 3.2s ease-in-out infinite; transform-origin:80px 70px;}
-@keyframes crackDraw{
-  0%{stroke-dashoffset:1; opacity:0;}
-  18%{opacity:1;}
-  55%{stroke-dashoffset:0; opacity:1;}
-  82%{stroke-dashoffset:0; opacity:1;}
-  97%{opacity:0;}
-  100%{stroke-dashoffset:1; opacity:0;}
-}
-@keyframes pulseGlow{
-  0%,100%{opacity:.18; r:36;}
-  50%{opacity:.4; r:44;}
+.decay-spot{animation:decayPulse 3.2s ease-in-out infinite; transform-origin:110px 55px;}
+@keyframes decayPulse{
+  0%,100%{transform:scale(1); opacity:.92;}
+  50%{transform:scale(1.06); opacity:1;}
 }
 @media (prefers-reduced-motion: reduce){
-  .crack-path{animation:none; stroke-dashoffset:0; opacity:.6;}
-  .tooth-glow{animation:none; opacity:.3;}
+  .decay-spot{animation:none; opacity:.95;}
 }
 .outcomes{display:grid; grid-template-columns:1fr 1fr; gap:14px; max-width:460px; margin:0 auto;}
 .outcome{text-align:center; border-radius:10px; padding:10px 8px 12px;}
@@ -115,18 +105,18 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
 <body>
 <div class="wrap">
 <header>
-  <h1 id="h1Line">This tooth's filling needs replacing</h1>
+  <h1 id="h1Line">This tooth needs a filling</h1>
   <p class="lead" id="leadLine">You're booked for an <strong>NHS amalgam filling</strong> — here's a quick look at your options first.</p>
 </header>
 
 <div class="flow">
-  <h3 id="whyH3">Why your dentist recommended replacing it</h3>
-  <p style="text-align:center; color:var(--sub); font-size:.76rem; margin:-4px 0 10px;">Back tooth shown from above &mdash; the old filling has darkened and cracked at the edge, letting decay creep in underneath</p>
+  <h3>Why your dentist recommended a filling</h3>
+  <p style="text-align:center; color:var(--sub); font-size:.76rem; margin:-4px 0 10px;">Back tooth shown from above &mdash; decay has broken through the enamel and is spreading into the tooth</p>
   <div class="tooth-stage">
     <svg width="180" height="150" viewBox="0 0 200 170" aria-hidden="true">
-      <defs><linearGradient id="fillGradFlow" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#e6e9eb"/><stop offset="100%" stop-color="#9aa0a6"/>
-      </linearGradient></defs>
+      <defs><radialGradient id="decayGradFlow" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#7a5233"/><stop offset="55%" stop-color="#4a2f1f"/><stop offset="100%" stop-color="#241610"/>
+      </radialGradient></defs>
       <g transform="translate(78,6)">
         <g class="bite-arrow"><path d="M0,0 L9,11 L18,0" fill="none" stroke="var(--warn)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
       </g>
@@ -140,8 +130,7 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
         <circle cx="40" cy="95" r="26" fill="#f4f1e8" stroke="#cfc9b8" stroke-width="2"/>
         <circle cx="120" cy="95" r="26" fill="#f4f1e8" stroke="#cfc9b8" stroke-width="2"/>
         <path d="M40,35 L120,35 M40,95 L120,95 M80,20 L80,110" stroke="#cfc9b8" stroke-width="2" fill="none" opacity=".55"/>
-        <path d="M95,15 Q140,15 145,45 Q148,75 118,88 Q90,98 78,70 Q68,45 95,15 Z" fill="url(#fillGradFlow)" stroke="#7d8388" stroke-width="2.5"/>
-        <path class="crack-path" pathLength="1" d="M78,70 L60,80 L66,92 L45,108" stroke="#b3492f" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="decay-spot" d="M95,15 Q140,15 145,45 Q148,75 118,88 Q90,98 78,70 Q68,45 95,15 Z" fill="url(#decayGradFlow)" stroke="#3a2416" stroke-width="2.5"/>
       </g>
     </svg>
   </div>
@@ -153,12 +142,12 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
         <circle cx="85" cy="30" r="20" fill="#e6c3b8" stroke="#b3492f" stroke-width="1.5"/>
         <circle cx="35" cy="80" r="20" fill="#e6c3b8" stroke="#b3492f" stroke-width="1.5"/>
         <circle cx="85" cy="80" r="20" fill="#e6c3b8" stroke="#b3492f" stroke-width="1.5"/>
-        <path d="M70,12 Q98,12 100,32 Q102,52 82,58 Q66,44 70,12 Z" fill="#9aa0a6" stroke="#7d8388" stroke-width="2"/>
-        <path d="M70,55 L52,64 L58,76 L38,92" stroke="#b3492f" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M22,96 L36,91 L33,110 L18,108 Z" fill="#e6c3b8" stroke="#b3492f" stroke-width="2" opacity=".9"/>
+        <path d="M70,12 Q98,12 100,32 Q102,52 82,58 Q66,44 70,12 Z" fill="#3a2416" stroke="#241610" stroke-width="2"/>
+        <circle cx="55" cy="70" r="7" fill="#4a2f1f" opacity=".85"/>
+        <circle cx="40" cy="88" r="5" fill="#4a2f1f" opacity=".7"/>
       </svg>
       <div class="label">Left as is</div>
-      <div class="sub">decay spreads under the filling</div>
+      <div class="sub">decay spreads deeper into the tooth</div>
       <div class="sub" style="font-weight:600;margin-top:2px;">→ often means a root canal or crown later — or extraction &amp; implant ~£3,000</div>
     </div>
     <div class="outcome good">
@@ -171,7 +160,7 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
         <circle cx="88" cy="86" r="26" fill="#2f6f6b"/>
         <path d="M76,86 L84,94 L100,74" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <div class="label">Composite fitted</div>
+      <div class="label">Filling placed</div>
       <div class="sub">decay sealed out, tooth protected</div>
     </div>
   </div>
@@ -189,11 +178,11 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
       <path d="M70,32 Q70,96 100,106 Q130,96 130,32 Q100,16 70,32 Z" fill="url(#silverGrad)" stroke="#7d8388" stroke-width="2.5"/>
     </svg>
     <h2>NHS Amalgam Filling</h2>
-    <div class="price" id="nhsPrice">£73.50<small> (Band 2)</small></div>
+    <div class="price" id="nhsPrice">£76.60<small> (Band 2)</small></div>
     <ul>
       <li class="tag-line">BUDGET OPTION</li>
       <li><span class="tick">✓</span> Durable — handles heavy chewing well</li>
-      <li><span class="tick warn">⚠</span> Visibly silver/grey — stands out against your tooth</li>
+      <li><span class="tick warn">⚠</span> Visibly silver/grey — can sometimes shine through when smiling</li>
       <li><span class="tick warn">⚠</span> Expands &amp; contracts over time, which can crack the tooth</li>
     </ul>
   </div>
@@ -221,7 +210,7 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
 </div>
 
 <div class="permanence-note">
-  <strong>The sooner it's replaced, the less tooth is lost.</strong> A failing filling left in place lets decay spread further under it. If you'd rather have the tooth-coloured composite instead of metal, let us know before your appointment so we can arrange it for you.
+  <strong>The sooner it's treated, the less tooth is lost.</strong> Decay left in place keeps spreading and can reach the nerve. If you'd rather have the tooth-coloured composite instead of metal, let us know before your appointment so we can arrange it for you.
 </div>
 
 <div class="calc">
@@ -240,7 +229,7 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
     <button class="btn primary" onclick="calc()" style="height:38px;">Calculate</button>
   </div>
   <div class="result">
-    Estimated monthly payment: <b id="out">£16.25</b>/mo
+    Monthly payment: <b id="out">£16.25</b>
   </div>
 </div>
 
@@ -261,6 +250,18 @@ function calc(){
   document.getElementById('out').textContent = '£' + monthly.toFixed(2);
 }
 
+// Parses UK quadrant/Palmer-style tooth notation (e.g. "UR6", "ul 4") into a
+// plain-English anatomical description. Returns null if it doesn't match.
+function formatToothPosition(raw){
+  if(!raw) return null;
+  const m = raw.trim().toUpperCase().replace(/\s+/g,'').match(/^([UL])([RL])([1-8])$/);
+  if(!m) return null;
+  const arch = m[1] === 'U' ? 'Upper' : 'Lower';
+  const side = m[2] === 'R' ? 'Right' : 'Left';
+  const names = {1:'Central Incisor',2:'Lateral Incisor',3:'Canine',4:'First Premolar',5:'Second Premolar',6:'First Molar',7:'Second Molar',8:'Third Molar'};
+  return `${arch} ${side} ${names[parseInt(m[3],10)]}`;
+}
+
 // ---- Fill from URL params: ?name=&practice=&nhsfee=&fee=&tooth= ----
 (function(){
   const p = new URLSearchParams(window.location.search);
@@ -269,13 +270,14 @@ function calc(){
   const nhsFee = p.get('nhsfee');
   const fee = p.get('fee');
   const tooth = p.get('tooth');
+  const toothPhrase = formatToothPosition(tooth);
 
-  if(name){
-    const first = name.replace(/^(Mr|Mrs|Miss|Ms|Dr|Master)\.?\s+/i,'').split(' ')[0];
-    document.getElementById('whyH3').textContent = `Hi ${first}, this is why your dentist recommended replacing it`;
-  }
-
-  if(tooth) document.getElementById('h1Line').textContent = `Tooth ${tooth}'s filling needs replacing`;
+  const first = name ? name.replace(/^(Mr|Mrs|Miss|Ms|Dr|Master)\.?\s+/i,'').split(' ')[0] : null;
+  let headline = null;
+  if(first && toothPhrase) headline = `Hi ${first}, your ${toothPhrase} needs a filling`;
+  else if(first) headline = `Hi ${first}, this tooth needs a filling`;
+  else if(toothPhrase) headline = `Your ${toothPhrase} needs a filling`;
+  if(headline) document.getElementById('h1Line').textContent = headline;
 
   if(nhsFee) document.getElementById('nhsPrice').innerHTML = `£${nhsFee}<small> (Band 2)</small>`;
   if(fee){
@@ -284,7 +286,7 @@ function calc(){
     calc();
   }
 
-  const toothPart = tooth ? ` for tooth ${tooth}` : '';
+  const toothPart = toothPhrase ? ` for your ${toothPhrase.toLowerCase()}` : (tooth ? ` for tooth ${tooth}` : '');
   const waMsg = `Hi, I've just seen your email and wanted to upgrade to the tooth-coloured filling for my coming appointment${toothPart}. Thanks!`;
   document.getElementById('waLink').href = 'https://wa.me/447955293281?text=' + encodeURIComponent(waMsg);
 })();
