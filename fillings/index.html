@@ -116,7 +116,7 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
 <div class="wrap">
 <header>
   <h1 id="h1Line">This tooth's filling needs replacing</h1>
-  <p class="lead" id="leadLine">You're booked for an <strong>NHS amalgam filling</strong> â here's a quick look at your options first.</p>
+  <p class="lead" id="leadLine">You're booked for an <strong>NHS amalgam filling</strong> — here's a quick look at your options first.</p>
 </header>
 
 <div class="flow">
@@ -159,7 +159,7 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
       </svg>
       <div class="label">Left as is</div>
       <div class="sub">decay spreads under the filling</div>
-      <div class="sub" style="font-weight:600;margin-top:2px;">â often means a root canal or crown later â or extraction &amp; implant ~Â£3,000</div>
+      <div class="sub" style="font-weight:600;margin-top:2px;">→ often means a root canal or crown later — or extraction &amp; implant ~£3,000</div>
     </div>
     <div class="outcome good">
       <svg width="50" height="50" viewBox="0 0 120 120" aria-hidden="true">
@@ -189,12 +189,12 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
       <path d="M70,32 Q70,96 100,106 Q130,96 130,32 Q100,16 70,32 Z" fill="url(#silverGrad)" stroke="#7d8388" stroke-width="2.5"/>
     </svg>
     <h2>NHS Amalgam Filling</h2>
-    <div class="price" id="nhsPrice">Â£73.50<small> (Band 2)</small></div>
+    <div class="price" id="nhsPrice">£73.50<small> (Band 2)</small></div>
     <ul>
       <li class="tag-line">BUDGET OPTION</li>
-      <li><span class="tick">â</span> Durable â handles heavy chewing well</li>
-      <li><span class="tick warn">â </span> Visibly silver/grey â stands out against your tooth</li>
-      <li><span class="tick warn">â </span> Expands &amp; contracts over time, which can crack the tooth</li>
+      <li><span class="tick">✓</span> Durable — handles heavy chewing well</li>
+      <li><span class="tick warn">⚠</span> Visibly silver/grey — stands out against your tooth</li>
+      <li><span class="tick warn">⚠</span> Expands &amp; contracts over time, which can crack the tooth</li>
     </ul>
   </div>
   <div class="card private">
@@ -209,13 +209,13 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
       <path d="M70,32 Q70,96 100,106 Q130,96 130,32 Q100,16 70,32 Z" fill="url(#enamelGrad)" stroke="#d8c79a" stroke-width="2.5"/>
     </svg>
     <h2>Composite Filling</h2>
-    <div class="price" id="privatePrice">Â£195</div>
+    <div class="price" id="privatePrice">£195</div>
     <ul>
       <li class="tag-line">BEST VALUE &amp; LOOKS</li>
-      <li><span class="tick">â</span> Tooth-coloured â blends in completely</li>
-      <li><span class="tick">â</span> Bonds directly to the tooth â often less drilling than amalgam</li>
-      <li><span class="tick">â</span> No mercury content</li>
-      <li><span class="tick">â</span> Smooths back to a natural, invisible finish</li>
+      <li><span class="tick">✓</span> Tooth-coloured — blends in completely</li>
+      <li><span class="tick">✓</span> Bonds directly to the tooth — often less drilling than amalgam</li>
+      <li><span class="tick">✓</span> No mercury content</li>
+      <li><span class="tick">✓</span> Smooths back to a natural, invisible finish</li>
     </ul>
   </div>
 </div>
@@ -228,7 +228,7 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
   <h3>Spread the cost of your tooth-coloured composite filling</h3>
   <div class="calc-row">
     <div class="field">
-      <label for="amount">Treatment cost (Â£)</label>
+      <label for="amount">Treatment cost (£)</label>
       <input id="amount" type="number" value="195">
     </div>
     <div class="field">
@@ -240,7 +240,7 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
     <button class="btn primary" onclick="calc()" style="height:38px;">Calculate</button>
   </div>
   <div class="result">
-    Estimated monthly payment: <b id="out">Â£16.25</b>/mo
+    Estimated monthly payment: <b id="out">£16.25</b>/mo
   </div>
 </div>
 
@@ -258,7 +258,7 @@ function calc(){
   const amount = parseFloat(document.getElementById('amount').value) || 0;
   const months = parseFloat(document.getElementById('months').value) || 1;
   const monthly = amount/months;
-  document.getElementById('out').textContent = 'Â£' + monthly.toFixed(2);
+  document.getElementById('out').textContent = '£' + monthly.toFixed(2);
 }
 
 // ---- Fill from URL params: ?name=&practice=&nhsfee=&fee=&tooth= ----
@@ -277,9 +277,9 @@ function calc(){
 
   if(tooth) document.getElementById('h1Line').textContent = `Tooth ${tooth}'s filling needs replacing`;
 
-  if(nhsFee) document.getElementById('nhsPrice').innerHTML = `Â£${nhsFee}<small> (Band 2)</small>`;
+  if(nhsFee) document.getElementById('nhsPrice').innerHTML = `£${nhsFee}<small> (Band 2)</small>`;
   if(fee){
-    document.getElementById('privatePrice').textContent = `Â£${fee}`;
+    document.getElementById('privatePrice').textContent = `£${fee}`;
     document.getElementById('amount').value = fee;
     calc();
   }
