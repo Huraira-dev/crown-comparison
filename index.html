@@ -121,11 +121,10 @@
   <header>
     <h1 id="h1Line">This tooth needs a crown to stop it breaking down</h1>
     <p class="lead" id="leadLine">You're booked for an <strong>NHS crown</strong> — here's a quick look at your options first.</p>
-    <p id="subline">Prepared for [Patient Name] — [Practice Name]</p>
   </header>
 
   <div class="flow">
-    <h3>Why your dentist recommended a crown</h3>
+    <h3 id="whyH3">Why your dentist recommended a crown</h3>
     <p style="text-align:center; color:var(--sub); font-size:.76rem; margin:-4px 0 10px;">Back tooth shown from above &mdash; the existing filling is large, and the remaining wall of tooth around it is thin and under constant biting force</p>
     <div class="tooth-stage">
       <svg width="180" height="150" viewBox="0 0 200 170" aria-hidden="true">
@@ -164,6 +163,7 @@
         </svg>
         <div class="label">Left as is</div>
         <div class="sub">cusp cracks &amp; breaks off</div>
+        <div class="sub" style="font-weight:600;margin-top:2px;">→ often means extraction, then an implant ~£3,000</div>
       </div>
       <div class="outcome good">
         <svg width="50" height="50" viewBox="0 0 120 120" aria-hidden="true">
@@ -261,20 +261,15 @@
           <option>6</option><option selected>12</option><option>18</option><option>24</option>
         </select>
       </div>
-      <div class="field">
-        <label for="apr">Representative APR (%)</label>
-        <input id="apr" type="number" value="0" step="0.1">
-      </div>
       <button class="btn primary" onclick="calc()" style="height:38px;">Calculate</button>
     </div>
     <div class="result">
       Estimated monthly payment: <b id="out">£54.17</b>/mo
-      <div class="fine">Illustrative only — final terms subject to lender approval (e.g. Chrysalis Finance, Tabeo). Not financial advice.</div>
     </div>
   </div>
 
   <div class="cta-form">
-    <h3>Thinking of having the tooth-coloured crown instead?</h3>
+    <h3>Any questions? Thinking of having the tooth-coloured crown instead?</h3>
     <p class="cta-sub">Let reception know using the link below:</p>
     <a id="waLink" class="btn whatsapp" href="https://wa.me/447955293281" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 1.67c2.14 0 4.15.83 5.66 2.35a7.95 7.95 0 012.35 5.66c0 4.42-3.6 8.02-8.02 8.02h-.01c-1.48 0-2.93-.41-4.19-1.18l-.3-.18-3.12.82.83-3.04-.2-.31a7.93 7.93 0 01-1.24-4.27c0-4.42 3.6-8.02 8.02-8.02zm-3.85 4.34c-.15 0-.4.06-.6.28-.2.22-.79.77-.79 1.88 0 1.1.81 2.17.92 2.32.11.15 1.58 2.5 3.9 3.44 1.94.78 2.34.63 2.76.59.42-.04 1.36-.55 1.55-1.09.19-.53.19-.98.14-1.08-.06-.1-.21-.16-.44-.28-.23-.11-1.36-.67-1.57-.75-.21-.08-.36-.11-.51.11-.15.22-.58.75-.71.9-.13.15-.26.17-.49.06-.23-.11-.96-.35-1.83-1.13-.68-.6-1.13-1.35-1.27-1.58-.13-.22-.01-.34.1-.45.11-.11.23-.28.35-.42.11-.14.15-.24.23-.4.08-.15.04-.29-.02-.4-.06-.11-.5-1.29-.71-1.76-.19-.45-.38-.39-.51-.4-.13-.01-.28-.01-.43-.01z"/></svg>Message Reception on WhatsApp</a>
   </div>
@@ -286,11 +281,7 @@
 function calc(){
   const amount = parseFloat(document.getElementById('amount').value) || 0;
   const months = parseFloat(document.getElementById('months').value) || 1;
-  const apr = parseFloat(document.getElementById('apr').value) || 0;
-  const r = apr/100/12;
-  let monthly;
-  if(r === 0){ monthly = amount/months; }
-  else{ monthly = amount * r / (1 - Math.pow(1+r, -months)); }
+  const monthly = amount/months;
   document.getElementById('out').textContent = '£' + monthly.toFixed(2);
 }
 
@@ -304,8 +295,10 @@ function calc(){
   const goldFee = p.get('goldfee');
   const tooth = p.get('tooth');
 
-  if(name) document.getElementById('subline').textContent = `Prepared for ${name} — ${practice}`;
-  else document.getElementById('subline').textContent = `Prepared for you — ${practice}`;
+  if(name){
+        const first = name.replace(/^(Mr|Mrs|Miss|Ms|Dr|Master)\.?\s+/i,'').split(' ')[0];
+        document.getElementById('whyH3').textContent = `Hi ${first}, this is why your dentist recommended a crown`;
+      }
 
   if(tooth) document.getElementById('h1Line').textContent = `Tooth ${tooth} needs a crown to stop it breaking down`;
 
