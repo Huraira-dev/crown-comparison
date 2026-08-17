@@ -106,7 +106,7 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
 <div class="wrap">
 <header>
   <h1 id="h1Line">This tooth needs a filling</h1>
-  <p class="lead" id="leadLine">You're booked for an <strong>NHS amalgam filling</strong> — here's a quick look at your options first.</p>
+  <p class="lead" id="leadLine">You're booked for a filling — here's a quick look at your options before your visit.</p>
 </header>
 
 <div class="flow">
@@ -209,8 +209,8 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
   </div>
 </div>
 
-<div class="permanence-note">
-  <strong>The sooner it's treated, the less tooth is lost.</strong> Decay left in place keeps spreading and can reach the nerve. If you'd rather have the tooth-coloured composite instead of metal, let us know before your appointment so we can arrange it for you.
+<div class="permanence-note" id="permNote">
+  <strong>The sooner it's treated, the less tooth is lost.</strong> Decay left in place keeps spreading and can reach the nerve. If you're considering the tooth-coloured composite, let us know before your appointment and we can arrange it for you.
 </div>
 
 <div class="calc">
@@ -234,7 +234,7 @@ header h1{font-size:1.5rem; margin:0 0 8px; line-height:1.3;}
 </div>
 
 <div class="cta-form">
-  <h3>Any questions? Thinking of having the tooth-coloured filling instead?</h3>
+  <h3 id="ctaHeading">Any questions? Thinking of having the tooth-coloured filling instead?</h3>
   <p class="cta-sub">Let reception know using the link below:</p>
   <a id="waLink" class="btn whatsapp" href="https://wa.me/447955293281" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 1.67c2.14 0 4.15.83 5.66 2.35a7.95 7.95 0 012.35 5.66c0 4.42-3.6 8.02-8.02 8.02h-.01c-1.48 0-2.93-.41-4.19-1.18l-.3-.18-3.12.82.83-3.04-.2-.31a7.93 7.93 0 01-1.24-4.27c0-4.42 3.6-8.02 8.02-8.02zm-3.85 4.34c-.15 0-.4.06-.6.28-.2.22-.79.77-.79 1.88 0 1.1.81 2.17.92 2.32.11.15 1.58 2.5 3.9 3.44 1.94.78 2.34.63 2.76.59.42-.04 1.36-.55 1.55-1.09.19-.53.19-.98.14-1.08-.06-.1-.21-.16-.44-.28-.23-.11-1.36-.67-1.57-.75-.21-.08-.36-.11-.51.11-.15.22-.58.75-.71.9-.13.15-.26.17-.49.06-.23-.11-.96-.35-1.83-1.13-.68-.6-1.13-1.35-1.27-1.58-.13-.22-.01-.34.1-.45.11-.11.23-.28.35-.42.11-.14.15-.24.23-.4.08-.15.04-.29-.02-.4-.06-.11-.5-1.29-.71-1.76-.19-.45-.38-.39-.51-.4-.13-.01-.28-.01-.43-.01z"/></svg>Message Reception on WhatsApp</a>
 </div>
@@ -262,7 +262,12 @@ function formatToothPosition(raw){
   return `${arch} ${side} ${names[parseInt(m[3],10)]}`;
 }
 
-// ---- Fill from URL params: ?name=&practice=&nhsfee=&fee=&tooth= ----
+// ---- Fill from URL params: ?name=&practice=&nhsfee=&fee=&tooth=&neutral= ----
+// neutral=1 switches this from an "you're booked in for amalgam, upgrade?" upsell
+// page into a plain, undecided-patient-facing info page: same comparison content,
+// but no assumption they've already been booked for a specific filling material.
+// Default (no param) is unchanged so existing "Filling Options - Offer" links keep
+// working exactly as before.
 (function(){
   const p = new URLSearchParams(window.location.search);
   const name = p.get('name');
@@ -270,6 +275,7 @@ function formatToothPosition(raw){
   const nhsFee = p.get('nhsfee');
   const fee = p.get('fee');
   const tooth = p.get('tooth');
+  const neutral = p.get('neutral') === '1';
   const toothPhrase = formatToothPosition(tooth);
 
   const first = name ? name.replace(/^(Mr|Mrs|Miss|Ms|Dr|Master)\.?\s+/i,'').split(' ')[0] : null;
@@ -279,6 +285,12 @@ function formatToothPosition(raw){
   else if(toothPhrase) headline = `Your ${toothPhrase} needs a filling`;
   if(headline) document.getElementById('h1Line').textContent = headline;
 
+  if(neutral){
+    document.getElementById('leadLine').innerHTML = 'Weighing up your filling options? Here’s an honest look at both, so you can decide what’s right for you.';
+    document.getElementById('permNote').innerHTML = '<strong>The sooner it’s treated, the less tooth is lost.</strong> Decay left in place keeps spreading and can reach the nerve. If you’d like to go ahead with the tooth-coloured composite, just let us know and we can arrange it for you.';
+    document.getElementById('ctaHeading').textContent = 'Any questions, or want to go ahead with composite?';
+  }
+
   if(nhsFee) document.getElementById('nhsPrice').innerHTML = `£${nhsFee}<small> (Band 2)</small>`;
   if(fee){
     document.getElementById('privatePrice').textContent = `£${fee}`;
@@ -287,7 +299,9 @@ function formatToothPosition(raw){
   }
 
   const toothPart = toothPhrase ? ` for your ${toothPhrase.toLowerCase()}` : (tooth ? ` for tooth ${tooth}` : '');
-  const waMsg = `Hi, I've just seen your email and wanted to upgrade to the tooth-coloured filling for my coming appointment${toothPart}. Thanks!`;
+  const waMsg = neutral
+    ? `Hi, I've been looking at the filling options page and I'd like to find out more about the tooth-coloured composite option${toothPart}. Thanks!`
+    : `Hi, I've just seen your email and wanted to upgrade to the tooth-coloured filling for my coming appointment${toothPart}. Thanks!`;
   document.getElementById('waLink').href = 'https://wa.me/447955293281?text=' + encodeURIComponent(waMsg);
 })();
 </script>
