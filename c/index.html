@@ -70,9 +70,7 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>Small decay doesn't stay small</h1>
-    <p class="lead" id="leadLine">Catch it early — quick, cheap filling. Leave it — pain, extraction, a bigger bill.</p>
-    <p id="subline">Prepared for [Patient Name] — [Practice Name]</p>
+    <h1 id="mainLine">Your early decay is getting worse and can mean a bigger bill if checked later</h1>
   </header>
 
   <div class="cta-row">
@@ -141,9 +139,9 @@
 
   const fmt = n => '£' + n.toLocaleString('en-GB', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
 
-  if(name) document.getElementById('subline').textContent = `Prepared for ${name} — ${practice}`;
-  else document.getElementById('subline').textContent = `Prepared for you — ${practice}`;
-
+    document.getElementById('mainLine').textContent = name
+      ? `${name}, your early decay is getting worse and can mean a bigger bill if checked later`
+          : 'Your early decay is getting worse and can mean a bigger bill if checked later';
   document.getElementById('examFeeInline').textContent = fmt(examFee);
   document.getElementById('ctaFeeTop').textContent = fmt(examFee);
   document.getElementById('ctaFee').textContent = fmt(examFee);
