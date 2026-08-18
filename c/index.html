@@ -70,7 +70,8 @@
 <body>
 <div class="wrap">
   <header>
-    <h1 id="mainLine">Your early decay is getting worse and can mean a bigger bill if checked later</h1>
+        <h1 id="mainLine">Your early decay is getting worse and delaying a checkup can mean a bigger bill later</h1>
+        <p class="lead" id="leadLine">Get it checked now while it's small and manageable</p>
   </header>
 
   <div class="cta-row">
@@ -140,8 +141,8 @@
   const fmt = n => '£' + n.toLocaleString('en-GB', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
 
     document.getElementById('mainLine').textContent = name
-      ? `${name}, your early decay is getting worse and can mean a bigger bill if checked later`
-          : 'Your early decay is getting worse and can mean a bigger bill if checked later';
+            ? `${name}, your early decay is getting worse and delaying a checkup can mean a bigger bill later`
+            : 'Your early decay is getting worse and delaying a checkup can mean a bigger bill later';
   document.getElementById('examFeeInline').textContent = fmt(examFee);
   document.getElementById('ctaFeeTop').textContent = fmt(examFee);
   document.getElementById('ctaFee').textContent = fmt(examFee);
